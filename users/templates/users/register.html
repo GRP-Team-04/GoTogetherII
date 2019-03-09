@@ -1,0 +1,12 @@
+{% extends "team_sports_app/base.html" %}
+  
+{% block content %}
+
+  <form method="post" action={% url 'users:register' %}>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit_register">register</button>
+    <input type="hidden" name="next" value="{% url 'team_sports_app:index' %}">
+  </form>
+
+{% endblock content %}

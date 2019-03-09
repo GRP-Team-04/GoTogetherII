@@ -1,0 +1,13 @@
+{% extends "team_sports_app/base.html" %}
+
+{% block content %}
+  <p>Add a Event:</p>
+
+  <form action="{% url 'team_sports_app:new_event' %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">add event</button>
+  </form>
+
+{% endblock content %}
+

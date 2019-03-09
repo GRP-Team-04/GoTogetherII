@@ -1,0 +1,17 @@
+{% extends "team_sports_app/base.html" %}
+
+{% block content %}
+
+  {% if form.errors %}
+  <p>Username or password incorrect. Please try again.</p>
+  {% endif %}
+
+  <form method="post" action={% url 'users:login' %}>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="log in">log in</button>
+    <input type="hidden" name="next" value="{% url 'team_sports_app:index' %}">
+  </form>
+
+{% endblock content %}
+

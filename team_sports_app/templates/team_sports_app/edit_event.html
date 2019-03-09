@@ -1,0 +1,14 @@
+{% extends "team_sports_app/base.html" %}
+  
+{% block content %}
+  <p><a href="{% url 'team_sports_app:event' event.id %}">{{ event }}</a></p>
+
+  <p>Edit Event:</p>
+  
+  <form action="{% url 'team_sports_app:edit_event' event.id %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">save changes</button>
+  </form>
+
+{% endblock content %}
