@@ -34,7 +34,9 @@ def new_event(request):
         # POST post datas: process the data
         form = EventForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_event = form.save(commit = False)
+            new_event.owner = request.user
+            new_event.save()
             return HttpResponseRedirect(reverse('team_sports_app:events'))
 
     context = {'form': form}
@@ -43,7 +45,7 @@ def new_event(request):
 @login_required
 def edit_event(request, event_id):
     """ Edit exist event """
-    
+
     event = Event.objects.filter(owner=request.user).get(id=event_id)
     #participant = event.participant
 
@@ -56,5 +58,3 @@ def edit_event(request, event_id):
             return HttpResponseRedirect(reverse('team_sports_app:event', args=[event.id]))
     context = {'event': event, 'form': form}
     return render(request, 'team_sports_app/edit_event.html', context)
-
-
