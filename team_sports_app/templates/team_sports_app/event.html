@@ -1,30 +1,39 @@
 {% extends 'team_sports_app/base.html' %}
-
+{% load bootstrap3 %}
+{% block header %}
+  <h1>{{ Event }}</h1>
+{% endblock header%}
 {% block content %}
 
-  <p>Event: {{ Event }}</p>
-  
   <p>Participants:</p>
   <ul>
   {% for participant in participants %}
-    <li>
-      <p>{{ participant.date_added|date:'M d, Y H:i' }}</p>
-      <p>{{ participant.participant|linebreaks }}</p>
-      <p>
-        <a href="{% url 'team_sports_app:edit_event' user.username event.id %}">Edit Event<a>
-      </p>
-    <li>
+    <div class="panel panel-default">
+
+      <div class="panel heading">
+        <h3>
+          {{ participant.date_added|date:'M d, Y H:i' }}
+          <small>
+            <a href="{% url 'team_sports_app:edit_event' user.username event.id %}">Edit Event<a>
+          </small>
+        </h3>
+      </div>
+
+      <div class="panel panel-body">
+        {{ participant.text|linebreaks }}
+      </div>
+    </div>
+
   {% empty %}
-    <li>
       There are no participants for this event now
-    </li>
   {% endfor %}
-  </ul>
+
+
   <form action = "join" method = "post">
 	{% csrf_token %}
-	<input type = "submit" name = "Join" value = "join">
+
+	<button type = "submit" class="btn btn-primary" name = "Join">Join</button>
   </form>
-  
+
 
 {% endblock content %}
-

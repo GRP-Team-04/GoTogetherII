@@ -1,21 +1,20 @@
 {% extends "team_sports_app/base.html" %}
+{% block header %}
+  <h1>Events</h1>
+{% endblock header%}
 
 {% block content %}
 
-  <p>Events</p>
-  
-  
   <ul>
     {% for event in events %}
       <li>
-	<a href="{% url 'team_sports_app:event' user.username event.id %}">{{ event }}</a>
+        <h3><a href="{% url 'team_sports_app:event' user.username event.id %}">{{ event }}</a></h3>
       </li>
     {% empty %}
       <li>No events have been added yet.</li>
     {% endfor %}
   </ul>
-  
-  <a href="{% url 'team_sports_app:new_event' %}">Dislike them? Add a new event by yourself!</a>
+
+  <h3><a href="{% url 'team_sports_app:new_event' %}">Dislike them? Add a new event by yourself!</a></h3>
 
 {% endblock content %}
-
