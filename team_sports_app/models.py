@@ -20,8 +20,8 @@ class Event(models.Model):
 	
 class Participant(models.Model):
 	"""Participants of one Event"""
-	event = models.ForeignKey(Event,on_delete=models.CASCADE)
-	participant = models.ForeignKey(User, on_delete=models.CASCADE) 
+	eventID = models.ForeignKey(Event,on_delete=models.CASCADE)
+	participantID = models.ForeignKey(User, on_delete=models.CASCADE) 
 	date_added = models.DateTimeField(auto_now_add=True)
 
 	class Meta:

@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import Event, Participant
+from django.contrib.auth.models import User
 from .forms import EventForm
 from django.contrib.auth.decorators import login_required
 
@@ -16,7 +17,7 @@ def events(request):
     return render(request, 'team_sports_app/events.html', context)
 
 @login_required
-def event(request, event_id):
+def event(request, user_username, event_id):
     """Show the details of one selected event"""
     event = Event.objects.get(id=event_id)
     participants = event.participant_set.order_by('-date_added')
@@ -34,18 +35,18 @@ def new_event(request):
         # POST post datas: process the data
         form = EventForm(request.POST)
         if form.is_valid():
-            new_event = form.save(commit = False)
+            new_event = form.save(commit=False)
             new_event.owner = request.user
-            new_event.save()
+            new_event.save()            
             return HttpResponseRedirect(reverse('team_sports_app:events'))
 
     context = {'form': form}
     return render(request, 'team_sports_app/new_event.html', context)
 
 @login_required
-def edit_event(request, event_id):
+def edit_event(request, user_username, event_id):
     """ Edit exist event """
-
+    
     event = Event.objects.filter(owner=request.user).get(id=event_id)
     #participant = event.participant
 
@@ -58,3 +59,23 @@ def edit_event(request, event_id):
             return HttpResponseRedirect(reverse('team_sports_app:event', args=[event.id]))
     context = {'event': event, 'form': form}
     return render(request, 'team_sports_app/edit_event.html', context)
+
+def join(request, user_username, event_id):
+	"""one more parameter 'user_id' or 'pass_in_username' needed here"""
+	
+	participant1 = Participant()
+	participant1.eventID = Event.objects.get(id=event_id)
+	participant1.participantID = User.objects.get(username=user_username)
+	
+	#participant1.date_added = "2019-3-8"
+	participant1.save()
+	
+	response = "current participant <br>"
+	list = Participant.objects.all()
+	
+	"""show all rows of table participant, will be changed to HttpResponseRedirect"""
+	for var in list:
+		response += var.eventID.Event_name + "  " + var.participantID.username+"<br>" 
+	
+	return HttpResponse("<p>" + response + "</p>")
+	#return HttpResponseRedirect('')
