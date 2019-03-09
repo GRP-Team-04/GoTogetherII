@@ -1,13 +1,51 @@
-<p>
- <a href="{% url 'team_sports_app:index' %}">GoTogether</a> ---- 
- <a href="{% url 'team_sports_app:events' %}">Events</a> ----
-  {% if user.is_authenticated %}
-    Hello, {{ user.username }}.
-    <a href="{% url 'users:logout' %}">log out</a>
-  {% else %}
-    <a href="{% url 'users:register' %}">register</a>
-    <a href="{% url 'users:login' %}">log in</a>
-  {% endif %}
-</p>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>GoTogether</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top">
 
-{% block content %}{% endblock content %}
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{% url 'team_sports_app:index' %}">GoTogether</a>
+        </div>
+
+        <div id = "navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'team_sports_app:events' %}">Events</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+              <li><a>Hello, {{ user.username }}.</a></li>
+              <li><a href="{% url 'users:logout' %}">log out</a></li>
+            {% else %}
+              <li><a href="{% url 'users:register' %}"><span class="glyphicon glyphicon-user"></span>register</a></li>
+              <li><a href="{% url 'users:login' %}"><span class="glyphicon glyphicon-log-in"></span>log in</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="page-header">
+        {% block header %}{% endblock header %}
+      </div>
+      <div>
+        {% block content %}{% endblock content %}
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,7 +1,11 @@
 {% extends "team_sports_app/base.html" %}
-
+{% block header%}
+  <div class="jumbotron">
+    <h1>Go to play together!</h1>
+  </div>
+{% endblock header %}
 {% block content  %}
-
-<p>GoTogether helps you keep track of your team sports events, for the team sports event you have created or joined.</p>
-
+  <h2><a href="{% url 'users:register' %}">Register an account</a> to helps
+    you keep track of your team sports events, for the team sports event you have created or joined.
+  </h2>
 {% endblock content %}
