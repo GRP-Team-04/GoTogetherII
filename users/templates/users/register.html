@@ -1,11 +1,19 @@
 {% extends "team_sports_app/base.html" %}
-  
+{% load bootstrap3 %}
+
+{% block header%}
+  <h3>Register</h3>
+{%endblock header%}
+
 {% block content %}
 
   <form method="post" action={% url 'users:register' %}>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit_register">register</button>
+    {%bootstrap_form form %}
+
+    {% buttons%}
+    <button class="btn btn-primary" name="submit_register">register</button>
+    {% endbuttons %}
     <input type="hidden" name="next" value="{% url 'team_sports_app:index' %}">
   </form>
 
