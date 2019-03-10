@@ -11,10 +11,14 @@
     {% bootstrap_form form %}
 
     {% buttons %}
-      <button name="log in" class="btn btn-primary">log in</button>
+      <button name="log in" class="btn btn-primary btn-block">Log in</button>
     {% endbuttons %}
 
     <input type="hidden" name="next" value="{% url 'team_sports_app:index' %}"/>
   </form>
+  <div class = "text-center">
+    <a href="{% url 'users:register' %}"><button class="btn btn-primary" name="register">Register Now!</button></a>
+  </div>
+
 
 {% endblock content %}

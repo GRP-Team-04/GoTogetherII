@@ -8,11 +8,17 @@
   <ul>
     {% for event in events %}
     <div class="list-group">
-
       <div >
-        <h3><a href="{% url 'team_sports_app:event' user.username event.id %}">{{ event }}</a></h3>
+        {% if user.is_authenticated %}
+        <h3>
+          <a href="{% url 'team_sports_app:event' user.username event.id %}">{{ event }}</a>
+        </h3>
+        {% else %}
+          <h3>
+            <a href="{% url 'users:login' %}">{{ event }}</a>
+          </h3>
+        {% endif %}
       </div>
-
       <div >
         <table class = "table">
     <thead>
@@ -30,15 +36,15 @@
   </table>
       </div>
     </div>
+
     {% empty %}
       <li>No events have been added yet.</li>
     {% endfor %}
   </ul>
 
   <h3>
-    Dislike them?
+    Create an event yourself!
     <a href="{% url 'team_sports_app:new_event' %}"><button class="btn btn-primary">Add a new event</button> </a>
-    by yourself!
   </h3>
 
 {% endblock content %}

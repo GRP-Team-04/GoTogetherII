@@ -20,7 +20,7 @@ def events(request):
 def event(request, user_username, event_id):
     """Show the details of one selected event"""
     event = Event.objects.get(id=event_id)
-    participants = event.participant_set.order_by('-date_added')
+    participants = event.participant_set.order_by('date_added')
     context = {'event': event, 'participants': participants}
 
     return render(request, 'team_sports_app/event.html', context)
@@ -37,7 +37,7 @@ def new_event(request):
         if form.is_valid():
             new_event = form.save(commit=False)
             new_event.owner = request.user
-            new_event.save()            
+            new_event.save()
             return HttpResponseRedirect(reverse('team_sports_app:events'))
 
     context = {'form': form}
@@ -46,7 +46,7 @@ def new_event(request):
 @login_required
 def edit_event(request, user_username, event_id):
     """ Edit exist event """
-    
+
     event = Event.objects.filter(owner=request.user).get(id=event_id)
     #participant = event.participant
 
@@ -62,20 +62,20 @@ def edit_event(request, user_username, event_id):
 
 def join(request, user_username, event_id):
 	"""one more parameter 'user_id' or 'pass_in_username' needed here"""
-	
+
 	participant1 = Participant()
 	participant1.eventID = Event.objects.get(id=event_id)
 	participant1.participantID = User.objects.get(username=user_username)
-	
+
 	#participant1.date_added = "2019-3-8"
 	participant1.save()
-	
+
 	response = "current participant <br>"
 	list = Participant.objects.all()
-	
+
 	"""show all rows of table participant, will be changed to HttpResponseRedirect"""
 	for var in list:
-		response += var.eventID.Event_name + "  " + var.participantID.username+"<br>" 
-	
+		response += var.eventID.Event_name + "  " + var.participantID.username+"<br>"
+
 	return HttpResponse("<p>" + response + "</p>")
 	#return HttpResponseRedirect('')
