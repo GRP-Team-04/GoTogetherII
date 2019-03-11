@@ -7,15 +7,18 @@ from .forms import EventForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+
 def index(request):
     """Home Page of the team sports"""
     return render(request, 'team_sports_app/index.html')
+
 
 def events(request):
     """Show all of the events"""
     events = Event.objects.order_by('Event_time')
     context = {'events': events}
     return render(request, 'team_sports_app/events.html', context)
+
 
 @login_required
 def event(request, user_username, event_id):
@@ -25,6 +28,7 @@ def event(request, user_username, event_id):
     context = {'event': event, 'participants': participants}
 
     return render(request, 'team_sports_app/event.html', context)
+
 
 @login_required
 def new_event(request):
@@ -44,6 +48,7 @@ def new_event(request):
     context = {'form': form}
     return render(request, 'team_sports_app/new_event.html', context)
 
+
 @login_required
 def edit_event(request, user_username, event_id):
     """ Edit exist event """
@@ -52,36 +57,40 @@ def edit_event(request, user_username, event_id):
     #participant = event.participant
 
     if request.method != 'POST':
-        form = EventForm(instance = event)
+        form = EventForm(instance=event)
     else:
-        form = EventForm(instance = event, data = request.POST)
+        form = EventForm(instance=event, data=request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('team_sports_app:event', args=[event.id]))
     context = {'event': event, 'form': form}
     return render(request, 'team_sports_app/edit_event.html', context)
 
+
 def join(request, user_username, event_id):
-	"""one more parameter 'user_id' or 'pass_in_username' needed here"""
+    """one more parameter 'user_id' or 'pass_in_username' needed here"""
 
-	participant1 = Participant()
-	participant1.eventID = Event.objects.get(id=event_id)
-	participant1.participantID = User.objects.get(username=user_username)
-	if(Participant.objects.filter(participantID=request.user,eventID=event_id).exists()):
+    participant1 = Participant()
+    participant1.eventID = Event.objects.get(id=event_id)
+    participant1.participantID = User.objects.get(username=user_username)
+    if(Participant.objects.filter(participantID=request.user, eventID=event_id).exists()):
 
-		messages.add_message(request, messages.ERROR, "You have already joined this event！")
+        messages.add_message(request, messages.ERROR,
+                             "You have already joined this event！")
 
-		return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username,event_id]))
-	else:
-		#participant1.date_added = "2019-3-8"
-		participant1.save()
+        return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
+    else:
+        #participant1.date_added = "2019-3-8"
+        participant1.save()
 
-		response = "current participant <br>"
-		list = Participant.objects.all()
+        response = "current participant <br>"
+        list = Participant.objects.all()
+        messages.add_message(request, messages.SUCCESS,
+                             "Successfully join the event！")
 
-		"""show all rows of table participant, will be changed to HttpResponseRedirect"""
-		"""for var in list:
+        """show all rows of table participant, will be changed to HttpResponseRedirect"""
+        """for var in list:
 			response += var.eventID.Event_name + "  " + var.participantID.username+"<br>"
+            return HttpResponse("<p>" + response + "</p>")"""
 
-		return HttpResponse("<p>" + response + "</p>")"""
-		return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username,event_id]))
+        return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
