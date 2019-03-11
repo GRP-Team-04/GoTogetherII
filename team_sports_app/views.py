@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import Event, Participant
 from django.contrib.auth.models import User
 from .forms import EventForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 def index(request):
     """Home Page of the team sports"""
@@ -66,16 +67,21 @@ def join(request, user_username, event_id):
 	participant1 = Participant()
 	participant1.eventID = Event.objects.get(id=event_id)
 	participant1.participantID = User.objects.get(username=user_username)
+	if(Participant.objects.filter(participantID=request.user,eventID=event_id).exists()):
 
-	#participant1.date_added = "2019-3-8"
-	participant1.save()
+		messages.add_message(request, messages.WARNING, "You have already joined this event！")
+        
+		return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username,event_id]))
+	else:
+		#participant1.date_added = "2019-3-8"
+		participant1.save()
 
-	response = "current participant <br>"
-	list = Participant.objects.all()
+		response = "current participant <br>"
+		list = Participant.objects.all()
 
-	"""show all rows of table participant, will be changed to HttpResponseRedirect"""
-	for var in list:
-		response += var.eventID.Event_name + "  " + var.participantID.username+"<br>"
+		"""show all rows of table participant, will be changed to HttpResponseRedirect"""
+		"""for var in list:
+			response += var.eventID.Event_name + "  " + var.participantID.username+"<br>"
 
-	return HttpResponse("<p>" + response + "</p>")
-	#return HttpResponseRedirect('')
+		return HttpResponse("<p>" + response + "</p>")"""
+		return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username,event_id]))

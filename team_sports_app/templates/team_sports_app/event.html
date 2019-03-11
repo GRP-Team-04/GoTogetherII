@@ -13,7 +13,7 @@
           {{ participant.participantID|linebreaks }}
           <small>
             <p>Join at {{ participant.date_added|date:'M d, Y H:i' }}</p>
-            <! a href="{% url 'team_sports_app:edit_event' user.username event.id %}">Edit Event<! a>
+            <!-- a href="{% url 'team_sports_app:edit_event' user.username event.id %}">Edit Event<! a Now finished yet-->
           </small>
         </h3>
     </div>
@@ -28,6 +28,5 @@
 
 	<button type = "submit" class="btn btn-primary" name = "Join">Join</button>
   </form>
-
 
 {% endblock content %}
