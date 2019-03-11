@@ -69,8 +69,8 @@ def join(request, user_username, event_id):
 	participant1.participantID = User.objects.get(username=user_username)
 	if(Participant.objects.filter(participantID=request.user,eventID=event_id).exists()):
 
-		messages.add_message(request, messages.WARNING, "You have already joined this event！")
-        
+		messages.add_message(request, messages.ERROR, "You have already joined this event！")
+
 		return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username,event_id]))
 	else:
 		#participant1.date_added = "2019-3-8"

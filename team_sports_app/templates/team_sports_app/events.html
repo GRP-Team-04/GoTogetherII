@@ -7,11 +7,14 @@
 
   <ul>
     {% for event in events %}
-    <div class="list-group">
-      <div >
+    <div class="panel panel-default" style = "max_length = 400px; margin = 20px auto">
+      <div class="panel-heading">
         {% if user.is_authenticated %}
         <h3>
           <a href="{% url 'team_sports_app:event' user.username event.id %}">{{ event }}</a>
+          <div class="small text-muted">
+            Organizer:{{event.owner}}
+          </div>
         </h3>
         {% else %}
           <h3>
@@ -19,7 +22,7 @@
           </h3>
         {% endif %}
       </div>
-      <div >
+      <div class="panel-body" >
         <table class = "table">
     <thead>
       <tr>

@@ -17,18 +17,15 @@ class Event(models.Model):
 		"""Return string representation(description of event) of model"""
 		Players_registratered = 0
 		return self.Event_name
-	
+
 class Participant(models.Model):
 	"""Participants of one Event"""
 	eventID = models.ForeignKey(Event,on_delete=models.CASCADE)
-	participantID = models.ForeignKey(User, on_delete=models.CASCADE) 
+	participantID = models.ForeignKey(User, on_delete=models.CASCADE)
 	date_added = models.DateTimeField(auto_now_add=True)
 
 	class Meta:
 		verbose_name_plural = 'participants'
 
 	def __str__(self):
-		if(len(self.participant) > 50):
-			return self.participant[:50] + "..."
-		else:
-			return self.participant
+			return self.eventID.Event_name
