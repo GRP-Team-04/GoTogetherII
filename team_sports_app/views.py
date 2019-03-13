@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from .models import Event, Participant
+from .models import Event, Participant, Profiles
 from django.contrib.auth.models import User
-from .forms import EventForm
+from .forms import EventForm, ProfilesForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -94,3 +94,56 @@ def join(request, user_username, event_id):
             return HttpResponse("<p>" + response + "</p>")"""
 
         return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
+
+def profiles(request):
+	#return HttpResponse("profiles")
+    
+	if(Profiles.objects.filter(userID=request.user).exists()):
+		MyProfiles = Profiles.objects.filter(userID=request.user)
+		context = {'MyProfiles': MyProfiles}
+		return render(request, 'team_sports_app/profiles.html', context)
+	else:
+		if request.method != 'POST':
+        # No data been posted yet: create a new form
+			form = ProfilesForm()
+		else:
+        # POST post datas: process the data
+			form = ProfilesForm(request.POST)
+			if form.is_valid():
+				new_profiles = form.save(commit=False)
+				new_profiles.userID = request.user
+				new_profiles.save()
+				return HttpResponseRedirect(reverse('team_sports_app:profiles'))
+
+		context = {'form': form}
+		return render(request, 'team_sports_app/AddProfiles.html', context)
+
+def edit_profiles(request):
+	MyProfiles = Profiles.objects.filter(userID=request.user)
+	context = {'MyProfiles': MyProfiles}
+	return render(request, 'team_sports_app/Edit_Profiles.html', context)
+	
+	"""profile = Profiles.objects.get(userID=request.user)
+	if request.method != 'POST':
+		form = ProfilesForm(instance=profile)
+	else:
+		form = ProfilesForm(request.POST)
+		if form.is_valid():
+			form.save()
+	context = {'form': form}
+	return render(request, 'team_sports_app/AddProfiles.html', context)	"""
+
+def save_new_profiles(request):
+	if(request.POST.get('name')==""):
+		messages.warning(request, 'The contents of the name cannot be empty')
+		return HttpResponseRedirect(reverse('team_sports_app:profiles'))
+	else:
+		new_profile = Profiles.objects.get(userID=request.user)
+		new_profile.userID=request.user
+		new_profile.name=request.POST.get('name')
+		new_profile.age=request.POST.get('age')
+		new_profile.speciality=request.POST.get('speciality')
+		new_profile.address=request.POST.get('address')
+		new_profile.statement=request.POST.get('statement')
+		new_profile.save()
+		return HttpResponseRedirect(reverse('team_sports_app:profiles'))

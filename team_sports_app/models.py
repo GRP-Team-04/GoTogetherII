@@ -31,3 +31,11 @@ class Participant(models.Model):
 
     def __str__(self):
         return self.eventID.Event_name
+
+class Profiles(models.Model):
+	userID = models.ForeignKey(User, on_delete=models.CASCADE)
+	name = models.CharField(max_length=100, null=False)
+	age = models.IntegerField(null=True)
+	speciality = models.CharField(max_length=100, null=True)
+	address = models.CharField(max_length=100, null=True)
+	statement = models.CharField(max_length=150, null=True)

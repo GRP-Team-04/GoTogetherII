@@ -1,0 +1,61 @@
+{% extends "team_sports_app/base.html" %}
+
+{% block header %}
+  <h1>My Profiles</h1>
+{% endblock header%}
+
+{% block content %}
+	
+	<form action="{% url 'team_sports_app:save_new_profiles' %}" method='post'>
+    {% csrf_token %}
+    
+	{% for profile in MyProfiles %}
+	<table>
+	<tr>
+	<th>name</th>
+	<td> 
+		<input type = "text" name="name" value={{profile.name}} />
+	</td>	
+	</tr>
+	<tr>
+	<th>age</th>
+	<td> 
+		<input type = "text" name = "age" value = {{profile.age}} />
+	</td>
+	</tr>
+	<tr>
+	<th>speciality</th>
+	<td> 
+		<input type = "text" name = "speciality" value = {{profile.speciality}} />
+	</td>
+	</tr>
+	<tr>
+	<th>address</th>
+	<td> 
+		<input type = "text" name = "address" value = {{profile.address}} />
+	</td>
+	</tr>
+	<tr>
+	<th>statement</th>
+	<td> 
+		<input type = "text" name = "statement" value = {{profile.statement}} />
+	</td>
+	</tr>
+	
+	<tr>
+	<td>
+		<input type = "submit" value = "submit form">
+	</td>
+	</tr>
+	</table>
+		
+	{% endfor %}
+    </form>
+	{% if messages %}
+		<script>
+			{% for msg in messages %}
+				alert('{{msg.message}}');
+			{% endfor %}
+		</script>
+	{% endif %}
+{% endblock content %}

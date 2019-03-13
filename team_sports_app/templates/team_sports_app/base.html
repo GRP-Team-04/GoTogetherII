@@ -24,6 +24,11 @@
         <div id = "navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="{% url 'team_sports_app:events' %}">Events</a></li>
+			{% if user.is_authenticated %}
+				<li><a href="{%url 'team_sports_app:profiles'%}">My Profiles</a></li>
+			{% else %}
+				<li><a href="{% url 'users:login' %}">My Profiles</a></li>
+			{% endif %}
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
@@ -36,6 +41,7 @@
             {% endif %}
           </ul>
         </div>
+		
       </nav>
     </div>
 

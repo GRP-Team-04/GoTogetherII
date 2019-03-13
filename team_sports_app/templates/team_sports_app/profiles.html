@@ -1,0 +1,39 @@
+{% extends "team_sports_app/base.html" %}
+{% block header %}
+  <h1>My Profiles</h1>
+{% endblock header%}
+
+{% block content %}
+
+  <ul>
+    {% for profile in MyProfiles %}
+	<table>
+		<tr>
+			<td>name: </td>
+			<td>{{profile.name}}</td>
+		</tr>
+		<tr>
+			<td>age: </td>
+			<td>{{profile.age}}</td>
+		</tr>
+		<tr>
+			<td>speciality: </td>
+			<td>{{profile.speciality}}</td>
+		</tr>
+		<tr>
+			<td>address: </td>
+			<td>{{profile.address}}</td>
+		</tr>
+		<tr>
+			<td>statement: </td>
+			<td>{{profile.statement}}</td>
+		</tr>
+	</table>
+	{% endfor %}
+</ul>
+<form action="{% url 'team_sports_app:edit_profiles' %}" method='post'>
+	{% csrf_token %}
+	<input type="submit" value="Edit Profiles"></input>
+</form>
+
+{% endblock content %}	
