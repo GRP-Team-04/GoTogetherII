@@ -62,7 +62,7 @@ def edit_event(request, user_username, event_id):
         form = EventForm(instance=event, data=request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('team_sports_app:event', args=[event.id]))
+            return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
     context = {'event': event, 'form': form}
     return render(request, 'team_sports_app/edit_event.html', context)
 
@@ -97,7 +97,7 @@ def join(request, user_username, event_id):
 
 def profiles(request):
 	#return HttpResponse("profiles")
-    
+
 	if(Profiles.objects.filter(userID=request.user).exists()):
 		MyProfiles = Profiles.objects.filter(userID=request.user)
 		context = {'MyProfiles': MyProfiles}
@@ -122,7 +122,7 @@ def edit_profiles(request):
 	MyProfiles = Profiles.objects.filter(userID=request.user)
 	context = {'MyProfiles': MyProfiles}
 	return render(request, 'team_sports_app/Edit_Profiles.html', context)
-	
+
 	"""profile = Profiles.objects.get(userID=request.user)
 	if request.method != 'POST':
 		form = ProfilesForm(instance=profile)

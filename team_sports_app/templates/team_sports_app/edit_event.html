@@ -1,14 +1,18 @@
 {% extends "team_sports_app/base.html" %}
+{% load bootstrap3 %}
+{% block header %}
+  <h3>Edit Event:</h3>
+{% endblock header %}
 
 {% block content %}
-  <p><a href="{% url 'team_sports_app:event' event.id %}">{{ event }}</a></p>
+  <h5><a href="{% url 'team_sports_app:event' user.username event.id %}">return</a></h5>
 
-  <p>Edit Event:</p>
-
-  <form action="{% url 'team_sports_app:edit_event' event.id %}" method='post'>
+  <form action="{% url 'team_sports_app:edit_event' user.username event.id %}" method='post'>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">save changes</button>
+    {% bootstrap_form form %}
+    <div class="text-center">
+      <button class="btn btn-primary" name="submit">save changes</button>
+    </div>
   </form>
 
 {% endblock content %}
