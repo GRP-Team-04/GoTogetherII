@@ -124,6 +124,7 @@ tests/report/
 
 # virtual env
 ts_env/
+gt_env/
 
 .DS_Store
 

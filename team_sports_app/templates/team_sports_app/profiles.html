@@ -4,36 +4,35 @@
 {% endblock header%}
 
 {% block content %}
-
-  <ul>
-    {% for profile in MyProfiles %}
-	<table>
-		<tr>
-			<td>name: </td>
-			<td>{{profile.name}}</td>
-		</tr>
-		<tr>
-			<td>age: </td>
-			<td>{{profile.age}}</td>
-		</tr>
-		<tr>
-			<td>speciality: </td>
-			<td>{{profile.speciality}}</td>
-		</tr>
-		<tr>
-			<td>address: </td>
-			<td>{{profile.address}}</td>
-		</tr>
-		<tr>
-			<td>statement: </td>
-			<td>{{profile.statement}}</td>
-		</tr>
-	</table>
-	{% endfor %}
-</ul>
+{% for profile in MyProfiles %}
+  <div class="table-responsive">
+  	<table class="table table-striped">
+  		<tr>
+  			<th>name: </th>
+  			<td>{{profile.name}}</td>
+  		</tr>
+  		<tr>
+  			<th>age: </th>
+  			<td>{{profile.age}}</td>
+  		</tr>
+  		<tr>
+  			<th>speciality: </th>
+  			<td>{{profile.speciality}}</td>
+  		</tr>
+  		<tr>
+  			<th>address: </th>
+  			<td>{{profile.address}}</td>
+  		</tr>
+  		<tr>
+  			<th>statement: </th>
+  			<td>{{profile.statement}}</td>
+  		</tr>
+  	</table>
+  </div>
+{% endfor %}
 <form action="{% url 'team_sports_app:edit_profiles' %}" method='post'>
 	{% csrf_token %}
-	<input type="submit" value="Edit Profiles"></input>
+	<button class="btn btn-primary" type="submit">Edit Profiles</button>
 </form>
 
-{% endblock content %}	
+{% endblock content %}
