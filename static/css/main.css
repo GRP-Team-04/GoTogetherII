@@ -1,3 +1,13 @@
+@font-face {
+	font-family: Montserrat;
+	src: url('../static/font/Montserrat/montserrat-regular.ttf');
+}
+
+body{
+	 font-family: Montserrat;
+}
+
+
 .btn{
 	border-radius: 25px;
 }
