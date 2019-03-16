@@ -1,38 +1,43 @@
 {% extends "team_sports_app/base.html" %}
 {% block header %}
-  <h1>My Profiles</h1>
+  <h1 class="text-center">My Profiles</h1>
 {% endblock header%}
 
 {% block content %}
-{% for profile in MyProfiles %}
-  <div class="table-responsive">
-  	<table class="table table-striped">
-  		<tr>
-  			<th>name: </th>
-  			<td>{{profile.name}}</td>
-  		</tr>
-  		<tr>
-  			<th>age: </th>
-  			<td>{{profile.age}}</td>
-  		</tr>
-  		<tr>
-  			<th>speciality: </th>
-  			<td>{{profile.speciality}}</td>
-  		</tr>
-  		<tr>
-  			<th>address: </th>
-  			<td>{{profile.address}}</td>
-  		</tr>
-  		<tr>
-  			<th>statement: </th>
-  			<td>{{profile.statement}}</td>
-  		</tr>
-  	</table>
-  </div>
-{% endfor %}
-<form action="{% url 'team_sports_app:edit_profiles' %}" method='post'>
-	{% csrf_token %}
-	<button class="btn btn-primary" type="submit">Edit Profiles</button>
-</form>
+<div class="container-transparent container container-small">
+  {% for profile in MyProfiles %}
+    <div class="table-responsive">
+    	<table class="table table-striped">
+    		<tr>
+    			<th>name: </th>
+    			<td>{{profile.name}}</td>
+    		</tr>
+    		<tr>
+    			<th>age: </th>
+    			<td>{{profile.age}}</td>
+    		</tr>
+    		<tr>
+    			<th>speciality: </th>
+    			<td>{{profile.speciality}}</td>
+    		</tr>
+    		<tr>
+    			<th>address: </th>
+    			<td>{{profile.address}}</td>
+    		</tr>
+    		<tr>
+    			<th>statement: </th>
+    			<td>{{profile.statement}}</td>
+    		</tr>
+    	</table>
+    </div>
+  {% endfor %}
+  <form action="{% url 'team_sports_app:edit_profiles' %}" method='post'>
+  	{% csrf_token %}
+    <div class="text-center">
+      <button class="btn btn-primary" type="submit">Edit Profiles</button>
+    </div>
+  </form>
+</div>
+
 
 {% endblock content %}

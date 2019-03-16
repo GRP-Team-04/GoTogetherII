@@ -5,9 +5,46 @@
 
 body{
 	 font-family: Montserrat;
+	 background: transparent;
+}
+div.row{
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px;
 }
 
+/* id */
+#grad-blue-down{
+	background: -webkit-linear-gradient(rgba(36, 133, 233, 0.9),rgba(36, 133, 233, 0)); /* Safari 5.1 - 6 */
+  background: -o-linear-gradient(rgba(36, 133, 233, 0.9),rgba(36, 133, 233, 0)); /* Opera 11.1 - 12*/
+  background: -moz-linear-gradient(rgba(36, 133, 233, 0.9),rgba(36, 133, 233, 0)); /* Firefox 3.6 - 15*/
+  background: linear-gradient(rgba(36, 133, 233, 0.9), rgba(36, 133, 233, 0)); /* standard */
+}
+#grad-blue-up{
+	background: -webkit-linear-gradient(bottom,rgba(36, 133, 233, 0),rgba(36, 133, 233, 0.9)); /* Safari 5.1 - 6 */
+  background: -o-linear-gradient(top,rgba(36, 133, 233, 0),rgba(36, 133, 233, 0.9)); /* Opera 11.1 - 12*/
+  background: -moz-linear-gradient(top,rgba(36, 133, 233, 0),rgba(36, 133, 233, 0.9)); /* Firefox 3.6 - 15*/
+  background: linear-gradient(to bottom, rgba(36, 133, 233, 0), rgba(36, 133, 233, 0.9)); /* standard */
+}
+#white{
+	color: #ffffff;
+}
+
+/* class */
+.container-small{
+	max-width: 500px;
+}
+.container-transparent{
+	background-color: rgba(255, 255, 255, 0.55);
+	border-radius:10px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
 
 .btn{
 	border-radius: 25px;
+}
+.btn.btn-primary{
+	border-radius: 25px;
+	background-color: rgb(36, 133, 233);
 }

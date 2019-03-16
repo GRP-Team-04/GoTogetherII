@@ -2,7 +2,7 @@
 {% load bootstrap3 %}
 {% block header %}
   <h1>{{ event }}</h1>
-  <div class="small">
+  <div>
     <a href="{% url 'team_sports_app:edit_event' user.username event.id %}">Edit Event</a>
   </div>
 {% endblock header%}

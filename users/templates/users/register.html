@@ -2,19 +2,22 @@
 {% load bootstrap3 %}
 
 {% block header%}
-  <h3>Register</h3>
+  <div class="text-center">
+    <h2>Sign Up</h2>
+  </div>
 {%endblock header%}
 
 {% block content %}
-
-  <form method="post" action={% url 'users:register' %}>
-    {% csrf_token %}
-    {%bootstrap_form form %}
-
-    {% buttons%}
-    <button class="btn btn-primary" name="submit_register">register</button>
-    {% endbuttons %}
-    <input type="hidden" name="next" value="{% url 'team_sports_app:index' %}">
-  </form>
+  <div class="container" style="max-width = 500px">
+    <form method="post" action={% url 'users:register' %}>
+      {% csrf_token %}
+      {%bootstrap_form form %}
+      <div class="text-center">
+        <button class="btn btn-primary" name="submit_register">SIGN UP</button>
+      </div>
+    
+      <input type="hidden" name="next" value="{% url 'team_sports_app:index' %}">
+    </form>
+  </div>
 
 {% endblock content %}
