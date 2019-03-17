@@ -4,40 +4,43 @@
 {% endblock header%}
 
 {% block content %}
-<div class="container-transparent container container-small">
-  {% for profile in MyProfiles %}
-    <div class="table-responsive">
-    	<table class="table table-striped">
-    		<tr>
-    			<th>name: </th>
-    			<td>{{profile.name}}</td>
-    		</tr>
-    		<tr>
-    			<th>age: </th>
-    			<td>{{profile.age}}</td>
-    		</tr>
-    		<tr>
-    			<th>speciality: </th>
-    			<td>{{profile.speciality}}</td>
-    		</tr>
-    		<tr>
-    			<th>address: </th>
-    			<td>{{profile.address}}</td>
-    		</tr>
-    		<tr>
-    			<th>statement: </th>
-    			<td>{{profile.statement}}</td>
-    		</tr>
-    	</table>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4 container container-transparent">
+        {% for profile in MyProfiles %}
+          <div class="table-responsive">
+          	<table class="table table-striped">
+          		<tr>
+          			<th><span class="glyphicon glyphicon-user"></span> name: </th>
+          			<td>{{profile.name}}</td>
+          		</tr>
+          		<tr>
+          			<th><span class="icon-cog"></span> age:</th>
+          			<td>{{profile.age}}</td>
+          		</tr>
+          		<tr>
+          			<th><span class="glyphicon glyphicon-heart"></span> speciality: </th>
+          			<td>{{profile.speciality}}</td>
+          		</tr>
+          		<tr>
+          			<th><span class="glyphicon glyphicon-send"></span> address: </th>
+          			<td>{{profile.address}}</td>
+          		</tr>
+          		<tr>
+          			<th><span class="glyphicon glyphicon-pencil"></span> statement: </th>
+          			<td>{{profile.statement}}</td>
+          		</tr>
+          	</table>
+          </div>
+        {% endfor %}
+        <form action="{% url 'team_sports_app:edit_profiles' %}" method='post'>
+        	{% csrf_token %}
+          <div class="text-center">
+            <button class="btn btn-primary" type="submit">Edit Profiles</button>
+          </div>
+        </form>
     </div>
-  {% endfor %}
-  <form action="{% url 'team_sports_app:edit_profiles' %}" method='post'>
-  	{% csrf_token %}
-    <div class="text-center">
-      <button class="btn btn-primary" type="submit">Edit Profiles</button>
-    </div>
-  </form>
-</div>
+  </div>
+
 
 
 {% endblock content %}

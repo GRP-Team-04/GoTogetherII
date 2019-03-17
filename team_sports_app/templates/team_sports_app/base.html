@@ -9,6 +9,7 @@
     <title>GoTogether</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/Font-Awesome/css/font-awesome.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
@@ -34,7 +35,7 @@
           {% if user.is_authenticated %}
             <li><a  id="white" >Welcome, {{ user.username }}!</a></li>
             <li><a id="white" href="{% url 'team_sports_app:events' %}"><span class="glyphicon glyphicon-th"></span> Events</a></li>
-            <li><a  id="white" href="{%url 'team_sports_app:profiles'%}">My Profiles</a></li>
+            <li><a  id="white" href="{%url 'team_sports_app:profiles'%}"><span class="glyphicon glyphicon-home"></span> My Profiles</a></li>
             <li><a  id="white" href="{% url 'users:logout' %}"><span class="glyphicon glyphicon-log-out"></span>Sign out</a></li>
           {% else %}
             <li><a id="white" href="{% url 'team_sports_app:events' %}"><span class="glyphicon glyphicon-th"></span> Events</a></li>
