@@ -8,15 +8,19 @@
     {% bootstrap_javascript %}
     <title>GoTogether</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/Font-Awesome/css/font-awesome.min.css">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script src="http://momentjs.com/downloads/moment.js"></script> -->
+    <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
   </head>
   <body style="background-image: url('/static/pic/ground-blue.jpg')">
     <div class="container-fluid" style="background-color: rgb(36, 133, 233)">
-
-      {%include 'team_sports_app/partial/messages.html' %}
 
       <nav class="navbar navbar-default navbar-static-top" style="background-color: rgb(36, 133, 233)" >
         <div class="navbar-header">
@@ -48,6 +52,9 @@
       </nav>
     </div>
 
+    <div class="container container-small">
+    {%include 'team_sports_app/partial/messages.html' %}
+    </div>
 
     <div class="container" style="background-color:rgba(255,255,255,0)">
       <div class="page-header">

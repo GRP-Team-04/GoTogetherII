@@ -2,7 +2,7 @@
 {% load bootstrap3 %}
 {% block header %}
 <div class="text-center">
-  <h2>Sign in to your account.</h2>
+  <h2>SIGN IN</h2>
 </div>
 
 {% endblock header%}
@@ -15,7 +15,7 @@
       {% csrf_token %}
       {% bootstrap_form form %}
 
-      <button name="log in" class="btn btn-primary btn-block">Sign in</button>
+      <button name="log in" class="btn btn-primary btn-block">Sign In</button>
 
       <input type="hidden" name="next" value="{% url 'team_sports_app:index' %}"/>
     </form>

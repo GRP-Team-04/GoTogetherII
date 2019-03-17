@@ -1,27 +1,26 @@
 {% extends "team_sports_app/base.html" %}
 {% block header%}
-  <div id="grad-blue-down" class="jumbotron" style="padding-top:60px">
+  <div  class="grad-blue-down jumbotron" style="padding-top:60px">
     <h1 id="white" class="text-center">Want to find someone to exercise with?</h1>
   </div>
 {% endblock header %}
 {% block content  %}
-  <div  class="container">
-    {% if user.is_authenticated %}
-    <div class="text-center">
-        <a id="white" href="{% url 'team_sports_app:events' %}">
-          <button class="btn btn-primary btn-lg text-uppercase" name="button">Get Start</button>
-        </a>
-    </div>
+  {% if user.is_authenticated %}
+  <div class="text-center">
+      <a id="white" href="{% url 'team_sports_app:events' %}">
+        <button class="btn btn-primary btn-lg text-uppercase" name="button">Get Start</button>
+      </a>
+  </div>
 
-    {% else %}
+  {% else %}
 
-    <h2 id="white">
-      Register to helps you keep track of your team sports events,
-      for the team sports event you have created or joined.
-    </h2>
-    <div class="text-center">
-      <a href="{% url 'users:register' %}"><button class="btn-block btn btn-primary btn-block text-uppercase ">Get Start Now</button></a>
-    </div>
+  <h2 id="white" class="grad-blue-up text-center">
+    Register to helps you keep track of your team sports events,
+    for the team sports event you have created or joined.
+  </h2>
+  <div class="text-center">
+    <a href="{% url 'users:register' %}"><button class="btn btn-primary text-uppercase ">Get Start Now</button></a>
   </div>
   {% endif %}
+
 {% endblock content %}

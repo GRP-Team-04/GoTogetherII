@@ -3,7 +3,9 @@
 {% block header %}
   <h1>{{ event }}</h1>
   <div>
-    <a href="{% url 'team_sports_app:edit_event' user.username event.id %}">Edit Event</a>
+    <a href="{% url 'team_sports_app:edit_event' user.username event.id %}">
+      <button class="btn btn-primary" type="button" name="button">Edit Event</button>
+    </a>
   </div>
 {% endblock header%}
 {% block content %}

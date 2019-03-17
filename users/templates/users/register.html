@@ -3,21 +3,23 @@
 
 {% block header%}
   <div class="text-center">
-    <h2>Sign Up</h2>
+    <h2>SIGN UP</h2>
   </div>
 {%endblock header%}
 
 {% block content %}
-  <div class="container" style="max-width = 500px">
+  <div class="container container-transparent" style="max-width:550px">
     <form method="post" action={% url 'users:register' %}>
       {% csrf_token %}
       {%bootstrap_form form %}
       <div class="text-center">
         <button class="btn btn-primary" name="submit_register">SIGN UP</button>
       </div>
-    
       <input type="hidden" name="next" value="{% url 'team_sports_app:index' %}">
     </form>
+    <div class="text-center">
+      <p>Already have an account?<a href="{% url 'users:login'%}">Sign in</a></p>
+    </div>
   </div>
 
 {% endblock content %}
