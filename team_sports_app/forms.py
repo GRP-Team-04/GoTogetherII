@@ -3,8 +3,7 @@ from .models import Event, Profiles
 
 
 class EventForm(forms.ModelForm):
-    Event_time = forms.DateTimeField(widget = forms.TextInput(attrs={
-                                                                    'class':'container',
+    Event_time = forms.DateTimeField(widget = forms.TextInput(attrs={                                                                    
                                                                     'id':'datetimepicker1'}))
     class Meta:
         model = Event

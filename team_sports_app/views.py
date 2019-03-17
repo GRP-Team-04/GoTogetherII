@@ -16,7 +16,7 @@ def index(request):
 def events(request):
     """Show all of the events"""
     events = Event.objects.order_by('Event_time')
-    context = {'events': events}
+    context = {'events': events, 'what':50}
     return render(request, 'team_sports_app/events.html', context)
 
 

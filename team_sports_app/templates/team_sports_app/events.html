@@ -10,28 +10,54 @@
     <div class="col-sm-4">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3>
-            {{ event }}
-            <div class="small text-muted">
-              Organizer:{{event.owner}}
+          <div class="row" style="padding:0px;margin:0px">
+            <div class="col-xs-9">
+                <h4 >{{ event }}</h4>
+              </div>
+              <div class="col-xs-3">
+                  <img class="img-circle img-responsive"src="/static/pic/portrait.jpg" alt="avatar">
+              </div>
             </div>
-          </h3>
-        </div>
+          </div>
+
         <div class="panel-body" >
           <table class = "table">
-            <thead>
-              <tr>
-                <th>When</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{ event.date_added|date:'M d, Y H:i' }}</td>
-                <td>{{ event.Description|linebreaks }}</td>
-              </tr>
-            </tbody>
+            <tr>
+              <th><span class="icon-user"></span>  Organizer</th>
+              <td class="text-center">{{ event.owner}}</td>
+            <tr>
+              <th><span class="icon-time"></span>  When</th>
+              <td class="text-center">{{ event.date_added|date:'M d, Y H:i' }}</td>
+            </tr>
+            <tr>
+              <th><span class="icon-road"></span>  Venue</th>
+              <td class="text-center">{{ event.Event_venue}}</td>
+            </tr>
           </table>
+
+          <div class="container-fluid">
+            <p><span class="icon-group"></span> Player registratered:  {{event.Players_registratered}}/{{event.Max_players}}</p>
+            {% widthratio event.Players_registratered event.Max_players 100 as Ratio %}
+            <div class="progress progress-striped active text-center">
+              {% if Ratio < '30' %}
+                <div class="progress-bar progress-bar-info" role="progressbar"
+                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{Ratio}}%">
+                </div>
+              {% elif Ratio < '70' %}
+                <div class="progress-bar progress-bar-success" role="progressbar"
+                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{Ratio}}%">
+                </div>
+              {% elif Ratio < '90' %}
+                <div class="progress-bar progress-bar-warning" role="progressbar"
+                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{Ratio}}%">
+                </div>
+              {% else %}
+                <div class="progress-bar progress-bar-danger" role="progressbar"
+                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:{{Ratio}}%">
+                </div>
+              {% endif %}
+            </div>
+          </div>
         </div>
         {% if user.is_authenticated %}
         <div class="text-center">
@@ -44,9 +70,9 @@
           <a href="{% url 'users:login' %}">
             <button class="btn-primary btn-lg btn" type="button" name="button">View Details</button>
           </a>
-          <br>
         </div>
         {% endif %}
+        <p></p>
       </div>
     </div>
     {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
