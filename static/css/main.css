@@ -21,10 +21,10 @@ div.row{
   background: linear-gradient(rgba(36, 133, 233, 0.9), rgba(36, 133, 233, 0)); /* standard */
 }
 .grad-blue-up{
-	background: -webkit-linear-gradient(bottom,rgba(36, 133, 233, 0.1),rgba(36, 133, 233, 0.8)); /* Safari 5.1 - 6 */
-  background: -o-linear-gradient(top,rgba(36, 133, 233, 0.1),rgba(36, 133, 233, 0.8)); /* Opera 11.1 - 12*/
-  background: -moz-linear-gradient(top,rgba(36, 133, 233, 0.1),rgba(36, 133, 233, 0.8)); /* Firefox 3.6 - 15*/
-  background: linear-gradient(to bottom, rgba(36, 133, 233, 0.1), rgba(36, 133, 233, 0.8)); /* standard */
+	background: -webkit-linear-gradient(bottom,rgba(36, 133, 233, 0.1),rgba(36, 133, 233, 0.6)); /* Safari 5.1 - 6 */
+  background: -o-linear-gradient(top,rgba(36, 133, 233, 0.1),rgba(36, 133, 233, 0.6)); /* Opera 11.1 - 12*/
+  background: -moz-linear-gradient(top,rgba(36, 133, 233, 0.1),rgba(36, 133, 233, 0.6)); /* Firefox 3.6 - 15*/
+  background: linear-gradient(to bottom, rgba(36, 133, 233, 0.1), rgba(36, 133, 233, 0.6)); /* standard */
 }
 #white{
 	color: #ffffff;

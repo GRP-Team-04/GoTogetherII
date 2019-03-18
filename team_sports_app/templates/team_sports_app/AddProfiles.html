@@ -1,14 +1,19 @@
 {% extends "team_sports_app/base.html" %}
 {% load bootstrap3 %}
 {% block header %}
-  <h1>My Profiles</h1>
+  <h1 class="text-center">My Profiles</h1>
 {% endblock header%}
 
 {% block content %}
-	<form action="{% url 'team_sports_app:profiles' %}" method='post'>
+<div class="container container-transparent container-small">
+  <form action="{% url 'team_sports_app:profiles' %}" method='post'>
 
-    {% csrf_token %}
+  {% csrf_token %}
 	{% bootstrap_form form %}
+  <div class="text-center">
     <button name="submit" class="btn btn-primary">Save</button>
+  </div>
   </form>
+</div>
+
 {% endblock content %}
