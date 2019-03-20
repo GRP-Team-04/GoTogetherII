@@ -1,10 +1,22 @@
 {% extends "team_sports_app/base.html" %}
 {% block header %}
-  <h1 class="text-center">Events</h1>
+  <h1 class="text-center">Existing Events</h1>
 {% endblock header%}
 
 {% block content %}
-  <div class="container-transparent container ">
+  <div class="container-transparent container">
+    <div class="row">
+      <div class="col-xs-12">
+          <div  id= "" class="">
+            <h3 class="text-center">
+              Create your own event!
+              <a href="{% url 'team_sports_app:new_event' %}"><button class="btn-lg btn btn-primary ">Add a new event</button> </a>
+            </h3>
+          </div>
+      </div>
+    </div>
+
+
     {% for event in events %}
     {% if forloop.first %}<div class="row">{% endif %}
     <div class="col-sm-4">
@@ -22,15 +34,15 @@
 
         <div class="panel-body" >
           <table class = "table">
-            <tr>
-              <th><span class="icon-user"></span>  Organizer</th>
+            <tr class="list-inline">
+              <th><span class="icon-user"></span> Organizer</th>
               <td class="text-center">{{ event.owner}}</td>
-            <tr>
-              <th><span class="icon-time"></span>  When</th>
+            <tr class="list-inline">
+              <th><span class="icon-time"></span> When</th>
               <td class="text-center">{{ event.date_added|date:'M d, Y H:i' }}</td>
             </tr>
-            <tr>
-              <th><span class="icon-road"></span>  Venue</th>
+            <tr class="list-inline">
+              <th><span class="icon-road"></span> Venue</th>
               <td class="text-center">{{ event.Event_venue}}</td>
             </tr>
           </table>
@@ -81,10 +93,14 @@
       <li>No events have been added yet.</li>
     {% endfor %}
 
-
-    <h3 class="text-center">
-      Create your own event!
-      <a href="{% url 'team_sports_app:new_event' %}"><button class="btn-lg btn btn-primary ">Add a new event</button> </a>
-    </h3>
   </div>
+  <script>
+    $(document).ready(function(){
+        $("#mynav").affix({
+            offset: {
+                top: 125
+          }
+        });
+    });
+  </script>
 {% endblock content %}

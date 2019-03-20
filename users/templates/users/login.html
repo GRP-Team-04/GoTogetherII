@@ -10,7 +10,7 @@
 {% block content %}
 
 </style>
-  <div class="container" style="max-width:500px">
+  <div class="container container-transparent" style="max-width:500px">
     <form  method="post" action={% url 'users:login' %} class = "form">
       {% csrf_token %}
       {% bootstrap_form form %}
@@ -19,10 +19,14 @@
 
       <input type="hidden" name="next" value="{% url 'team_sports_app:index' %}"/>
     </form>
+        <p></p>
+    <div class = "text-center text-uppercase">
+      <a href="{% url 'users:register' %}"><button class="btn btn-primary" name="register">Sign Up</button></a>
+    </div>
   </div>
-  <p></p>
-  <div class = "text-center text-uppercase">
-    <a href="{% url 'users:register' %}"><button class="btn btn-primary" name="register">Sign Up</button></a>
-  </div>
+
+
+
+
 
 {% endblock content %}
