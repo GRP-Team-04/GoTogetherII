@@ -76,7 +76,13 @@
 	{% csrf_token %}
   <div class="text-center">
     <button type = "submit" class="btn btn-primary" name = "Join">Join</button>
+	
   </div>
   </form>
-
+  <form action = "exit" method = "post">
+	{% csrf_token %}
+  <div class="text-center">
+  <button type = "submit" class="btn btn-primary" name = "Join">Exit</button>
+  </div>
+  </form>
 {% endblock content %}

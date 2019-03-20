@@ -147,3 +147,8 @@ def save_new_profiles(request):
 		new_profile.statement=request.POST.get('statement')
 		new_profile.save()
 		return HttpResponseRedirect(reverse('team_sports_app:profiles'))
+
+def exit_event(request, user_username, event_id):
+	if(Participant.objects.filter(participantID=request.user, eventID=event_id).exists()):
+		Participant.objects.get(participantID=request.user, eventID=event_id).delete()
+	return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id])) 
