@@ -1,4 +1,5 @@
 {% extends "team_sports_app/base.html" %}
+{% load static %}
 {% block header %}
   <h1 class="text-center">Existing Events</h1>
 {% endblock header%}
@@ -27,7 +28,7 @@
                 <h4 >{{ event }}</h4>
               </div>
               <div class="col-xs-3">
-                  <img class="img-circle img-responsive"src="/static/pic/portrait.jpg" alt="avatar">
+                  <img class="img-circle img-responsive" src="{% static "pic/portrait.jpg" %}" alt="avatar">
               </div>
             </div>
           </div>
