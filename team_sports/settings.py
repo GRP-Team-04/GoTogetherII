@@ -26,7 +26,7 @@ SECRET_KEY = 'd_0m@vdyk-gp5951qm=b)_39_=nea*!o*b%m4hnzoz!pv!qmxz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # My settings
 LOGIN_URL = '/users/login/'
