@@ -8,18 +8,14 @@
   {% if user.is_authenticated %}
   <div class="text-center">
       <a id="white" href="{% url 'team_sports_app:events' %}">
-        <button class="btn btn-primary btn-lg text-uppercase" name="button">Get Start</button>
+        <button class="btn btn-primary btn-lg text-uppercase btn-lg"" name="button">Get Start</button>
       </a>
   </div>
 
   {% else %}
 
-  <h2 id="white" class="grad-blue-up text-center">
-    Register to helps you keep track of your team sports events,
-    for the team sports event you have created or joined.
-  </h2>
   <div class="text-center">
-    <a href="{% url 'users:register' %}"><button class="btn btn-primary text-uppercase ">Get Start Now</button></a>
+    <a href="{% url 'users:register' %}"><button class="btn btn-primary text-uppercase btn-lg">Get Start Now</button></a>
   </div>
   {% endif %}
 

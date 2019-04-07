@@ -3,6 +3,15 @@
 	src: url('/static/font/Montserrat/montserrat-regular.ttf');
 }
 
+
+h1 {
+  font-size: 4vmax;
+}
+h2 {
+  font-size: 3vmax;
+}
+
+
 body{
 	 font-family: Montserrat;
 	 background: transparent;

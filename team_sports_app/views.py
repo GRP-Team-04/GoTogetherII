@@ -24,7 +24,7 @@ def events(request):
 def event(request, user_username, event_id):
     """Show the details of one selected event"""
     event = Event.objects.get(id=event_id)
-    participants = event.participant_set.order_by('date_added')
+    participants = event.participant_set.order_by(('-date_added'))
     context = {'event': event, 'participants': participants}
 
     return render(request, 'team_sports_app/event.html', context)
@@ -43,6 +43,10 @@ def new_event(request):
             new_event = form.save(commit=False)
             new_event.owner = request.user
             new_event.save()
+            participant1 = Participant()
+            participant1.eventID = new_event;
+            participant1.participantID = request.user
+            participant1.save()
             return HttpResponseRedirect(reverse('team_sports_app:events'))
 
     context = {'form': form}
@@ -149,6 +153,10 @@ def save_new_profiles(request):
 		return HttpResponseRedirect(reverse('team_sports_app:profiles'))
 
 def exit_event(request, user_username, event_id):
-	if(Participant.objects.filter(participantID=request.user, eventID=event_id).exists()):
-		Participant.objects.get(participantID=request.user, eventID=event_id).delete()
-	return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id])) 
+    if(Participant.objects.filter(participantID=request.user, eventID=event_id).exists()):
+        Participant.objects.get(participantID=request.user, eventID=event_id).delete()
+        messages.success(request, 'You are successfully quit from this event!')
+    else:
+        messages.add_message(request, messages.ERROR,
+                             "You haven't in that event yet！")
+    return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))

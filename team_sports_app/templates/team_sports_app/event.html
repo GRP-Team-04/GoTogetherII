@@ -5,7 +5,7 @@
   <h1 class="text-center">{{ event }}</h1>
   <div class="btn-group-lg">
     <div class="col-xs-6 text-center">
-      <button class="btn btn-primary" W name="button" onclick="location.href='{% url 'team_sports_app:edit_event' user.username event.id %}'">Edit Event</button>
+      <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:edit_event' user.username event.id %}'">Edit Event</button>
     </div>
     <div class="col-xs-6 text-center">
       <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:events'  %}'">Return</button>
@@ -29,7 +29,25 @@
 
 {% endblock header%}
 {% block content %}
+<table class = "table table-responsive" style="background-color: rgba(255, 255, 255, 0.55)">
+  <tr >
+    <th class="text-center"><span class="icon-user"></span> Organizer</th>
+    <td class="text-center">{{ event.owner}}</td>
+  <tr >
+    <th class="text-center"><span class="icon-time"></span> When</th>
+    <td class="text-center">{{ event.date_added|date:'M d, Y H:i' }}</td>
+  </tr>
+  <tr>
+    <th class="text-center"><span class="icon-road"></span> Venue</th>
+    <td class="text-center">{{ event.Event_venue}}</td>
+  </tr>
+  <tr>
+    <th class="text-center"><span class="icon-edit"></span> Description</th>
+    <td class="text-center">{{event.Description}}</td>
+  </tr>
+</table>
 <div class="container-transparent container ">
+  <p class="text-center text-success">Users Who Have Joined</p>
   {% for participant in participants %}
   {% if forloop.first %}<div class="row">{% endif %}
   <div class="col-sm-3">
@@ -45,7 +63,7 @@
     {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
     {% if forloop.last %}</div>{% endif %}
   {% empty %}
-      There are no participants for this event now
+      <p class="text-center">There are no participants for this event now</p>
   {% endfor %}
     <!-- <div class="panel panel-default">
       <div class="panel-heading">
@@ -72,17 +90,25 @@
             <td class="text-center">{{ event.Event_venue}}</td>
           </tr>
         </table> -->
-  <form action = "join" method = "post">
-	{% csrf_token %}
-  <div class="text-center">
-    <button type = "submit" class="btn btn-primary" name = "Join">Join</button>
-	
-  </div>
-  </form>
-  <form action = "exit" method = "post">
-	{% csrf_token %}
-  <div class="text-center">
-  <button type = "submit" class="btn btn-primary" name = "Join">Exit</button>
-  </div>
-  </form>
+    <div class="row">
+      <div class="col-xs-6">
+        <form action = "join" method = "post">
+        {% csrf_token %}
+        <div class="text-center">
+          <button type = "submit" class="btn btn-primary" name = "Join">Join</button>
+        </div>
+        </form>
+      </div>
+      <div class="col-xs-6">
+        <form action = "exit" method = "post">
+        {% csrf_token %}
+        <div class="text-center">
+        <button type = "submit" class="btn btn-primary" name = "Quit">Quit</button>
+        </div>
+        </form>
+      </div>
+    </div>
+
+
+
 {% endblock content %}

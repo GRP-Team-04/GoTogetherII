@@ -22,7 +22,7 @@
   </head>
   <body style="background-image: url({% static "pic/ground-blue.jpg" %})">
     <div class="container-fluid" style="background-color: rgb(36, 133, 233)">
-      <nav class="navbar navbar-default navbar-static-top" style="background-color: rgb(36, 133, 233)" >
+      <nav class="navbar navbar-default navbar-fixed-top" style="background-color: rgb(36, 133, 233)" >
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse"
           data-target="#navbar" aria-expanded="false" aria-controls="navbar" style="background-color:#fff">
@@ -52,11 +52,10 @@
       </nav>
     </div>
 
-    <div class="container container-small">
-    {%include 'team_sports_app/partial/messages.html' %}
-    </div>
-
-    <div class="container" style="background-color:rgba(255,255,255,0)">
+    <div class="container" style="background-color:rgba(255,255,255,0);padding-top:40px">
+      <div class="container container-small">
+      {%include 'team_sports_app/partial/messages.html' %}
+      </div>
       <div class="page-header">
         {% block header %}{% endblock header %}
       </div>

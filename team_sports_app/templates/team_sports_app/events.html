@@ -8,15 +8,13 @@
   <div class="container-transparent container">
     <div class="row">
       <div class="col-xs-12">
-          <div  id= "" class="">
+          <div  class="navbar navbar-fixed-bottom">
             <h3 class="text-center">
-              Create your own event!
               <a href="{% url 'team_sports_app:new_event' %}"><button class="btn-lg btn btn-primary ">Add a new event</button> </a>
             </h3>
           </div>
       </div>
     </div>
-
 
     {% for event in events %}
     {% if forloop.first %}<div class="row">{% endif %}
@@ -25,7 +23,7 @@
         <div class="panel-heading">
           <div class="row" style="padding:0px;margin:0px">
             <div class="col-xs-9">
-                <h4 >{{ event }}</h4>
+                <h4 class="text-left">{{ event }}</h4>
               </div>
               <div class="col-xs-3">
                   <img class="img-circle img-responsive" src="{% static "pic/portrait.jpg" %}" alt="avatar">
@@ -34,16 +32,16 @@
           </div>
 
         <div class="panel-body" >
-          <table class = "table">
-            <tr class="list-inline">
-              <th><span class="icon-user"></span> Organizer</th>
+          <table class = "table table-responsive">
+            <tr >
+              <th class="text-center"><span class="icon-user"></span> Organizer</th>
               <td class="text-center">{{ event.owner}}</td>
-            <tr class="list-inline">
-              <th><span class="icon-time"></span> When</th>
-              <td class="text-center">{{ event.date_added|date:'M d, Y H:i' }}</td>
+            <tr >
+              <th class="text-center"><span class="icon-time"></span> When</th>
+              <td class="text-center">{{ event.Event_time|date:'M d, Y H:i' }}</td>
             </tr>
-            <tr class="list-inline">
-              <th><span class="icon-road"></span> Venue</th>
+            <tr>
+              <th class="text-center"><span class="icon-road"></span> Venue</th>
               <td class="text-center">{{ event.Event_venue}}</td>
             </tr>
           </table>
@@ -91,17 +89,9 @@
     {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
     {% if forloop.last %}</div>{% endif %}
     {% empty %}
-      <li>No events have been added yet.</li>
+      <p>No events have been added yet.</p>
     {% endfor %}
 
   </div>
-  <script>
-    $(document).ready(function(){
-        $("#mynav").affix({
-            offset: {
-                top: 125
-          }
-        });
-    });
-  </script>
+
 {% endblock content %}
