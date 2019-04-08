@@ -25,7 +25,9 @@ def event(request, user_username, event_id):
     """Show the details of one selected event"""
     event = Event.objects.get(id=event_id)
     participants = event.participant_set.order_by(('-date_added'))
-    context = {'event': event, 'participants': participants}
+    isOwner = (event.owner == request.user)
+    isJoined = Participant.objects.filter(participantID=request.user, eventID=event_id).exists()
+    context = {'event': event, 'participants': participants,'isJoined' : isJoined, 'isOwner' : isOwner}
 
     return render(request, 'team_sports_app/event.html', context)
 
