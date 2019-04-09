@@ -23,7 +23,11 @@ def events(request):
 @login_required
 def event(request, user_username, event_id):
     """Show the details of one selected event"""
-    event = Event.objects.get(id=event_id)
+    try:
+        event = Event.objects.get(id=event_id)
+    except Exception as e:
+        return HttpResponseRedirect(reverse('team_sports_app:events'))
+
     participants = event.participant_set.order_by(('-date_added'))
     isOwner = (event.owner == request.user)
     isJoined = Participant.objects.filter(participantID=request.user, eventID=event_id).exists()
@@ -77,6 +81,11 @@ def join(request, user_username, event_id):
     """one more parameter 'user_id' or 'pass_in_username' needed here"""
 
     participant1 = Participant()
+    try:
+        participant1.eventID = Event.objects.get(id=event_id)
+    except Exception as e:
+        messages.error(request, 'The Event is not exist anymore!')
+        return HttpResponseRedirect(reverse('team_sports_app:events'))
     participant1.eventID = Event.objects.get(id=event_id)
     participant1.participantID = User.objects.get(username=user_username)
     if(Participant.objects.filter(participantID=request.user, eventID=event_id).exists()):
@@ -155,8 +164,13 @@ def save_new_profiles(request):
 		return HttpResponseRedirect(reverse('team_sports_app:profiles'))
 
 def exit_event(request, user_username, event_id):
+
     if(Participant.objects.filter(participantID=request.user, eventID=event_id).exists()):
-        Participant.objects.get(participantID=request.user, eventID=event_id).delete()
+        try:
+            Participant.objects.get(participantID=request.user, eventID=event_id).delete()
+        except Exception as e:
+            messages.error(request, 'The Event is not exist anymore!')
+            return HttpResponseRedirect(reverse('team_sports_app:events'))
         messages.success(request, 'You are successfully quit from this event!')
     else:
         messages.add_message(request, messages.ERROR,
