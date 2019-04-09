@@ -23,8 +23,9 @@ urlpatterns = [
 	url(r'^edit_event/(?P<user_username>\w+)/(?P<event_id>\d+)/$', views.edit_event, name="edit_event"),
 	url(r'^events/(?P<user_username>\w+)/(?P<event_id>\d+)/join$', views.join, name="join"),
 	url(r'^events/(?P<user_username>\w+)/(?P<event_id>\d+)/exit$', views.exit_event, name="exit"),
+	url(r'^events/(?P<user_username>\w+)/(?P<event_id>\d+)/delete$', views.delete_event, name="delete"),
 	url(r'^profiles/$', views.profiles, name = 'profiles'),
-	
+
 	url(r'^edit_profiles/$', views.edit_profiles, name='edit_profiles'),
 	url(r'^save_new_profiles/$', views.save_new_profiles, name='save_new_profiles'),
 ]

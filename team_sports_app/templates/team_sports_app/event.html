@@ -5,12 +5,42 @@
   <h1 class="text-center">{{ event }}</h1>
   <div class="btn-group-lg">
     {%if isOwner %}
-    <div class="col-xs-6 text-center">
+    <div class="col-xs-4 text-center">
       <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:edit_event' user.username event.id %}'">Edit Event</button>
     </div>
-    <div class="col-xs-6 text-center">
+    <div class="col-xs-4 text-center">
       <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:events'  %}'">Return</button>
     </div>
+    <div class="clo-xs-4 text-center">
+      <button class="btn btn-danger" data-toggle="modal" data-target="#Delete">
+      	Delete Event
+      </button>
+      <!--Modal -->
+      <div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      	<div class="modal-dialog">
+      		<div class="modal-content">
+      			<div class="modal-header">
+      				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+      					&times;
+      				</button>
+      				<h4 class="modal-title" id="myModalLabel">
+      					Delete Event
+      				</h4>
+      			</div>
+      			<div class="modal-body">
+      				Are you sure you want delete that event?
+      			</div>
+      			<div class="modal-footer">
+      				<button type="button" class="btn btn-default" data-dismiss="modal">Return
+      				</button>
+              <form action = "delete" method = "post" style="margin:0px;display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-success" name="delete">Confirm</button>
+              </form>
+      			</div>
+      		</div>
+      	</div>
+      </div>
     {%else%}
     <div class="col-xs-12 text-center">
       <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:events'  %}'">Return</button>
@@ -32,26 +62,29 @@
           <button type = "submit" class="btn btn-primary" name = "Join">Join</button>
       </form>
     </div> -->
-
 {% endblock header%}
+
 {% block content %}
-<table class = "table table-responsive" style="background-color: rgba(255, 255, 255, 0.55)">
-  <tr >
-    <th class="text-center"><span class="icon-user"></span> Organizer</th>
-    <td class="text-center">{{ event.owner}}</td>
-  <tr >
-    <th class="text-center"><span class="icon-time"></span> When</th>
-    <td class="text-center">{{ event.Event_time|date:'M d, Y H:i' }}</td>
-  </tr>
-  <tr>
-    <th class="text-center"><span class="icon-road"></span> Venue</th>
-    <td class="text-center">{{ event.Event_venue}}</td>
-  </tr>
-  <tr>
-    <th class="text-center"><span class="icon-edit"></span> Description</th>
-    <td class="text-center">{{event.Description}}</td>
-  </tr>
-</table>
+<div class="container container-transparent">
+  <table class = "table table-responsive" style="background-color: rgba(255, 255, 255, 0.55)">
+    <tr >
+      <th class="text-center"><span class="icon-user"></span> Organizer</th>
+      <td class="text-center">{{ event.owner}}</td>
+    <tr >
+      <th class="text-center"><span class="icon-time"></span> When</th>
+      <td class="text-center">{{ event.Event_time|date:'M d, Y H:i' }}</td>
+    </tr>
+    <tr>
+      <th class="text-center"><span class="icon-road"></span> Venue</th>
+      <td class="text-center">{{ event.Event_venue}}</td>
+    </tr>
+    <tr>
+      <th class="text-center"><span class="icon-edit"></span> Description</th>
+      <td class="text-center">{{event.Description}}</td>
+    </tr>
+  </table>
+</div>
+
 <div class="container-transparent container ">
   <p class="text-center text-success">Users Who Have Joined</p>
   {% for participant in participants %}
@@ -96,14 +129,40 @@
             <td class="text-center">{{ event.Event_venue}}</td>
           </tr>
         </table> -->
+      {% if isOwner %}
+      <!-- Hide quit button to event owner -->
+      {% else %}
       {% if isJoined %}
-      <div class="col-xs-12">
-        <form action = "exit" method = "post">
-        {% csrf_token %}
-        <div class="text-center">
-        <button type = "submit" class="btn btn-primary" name = "Quit">Quit</button>
+      <div class="col-xs-12 text-center">
+        <button class="btn btn-primary " data-toggle="modal" data-target="#Quit">
+          Quit
+        </button>
+        <!--Modal -->
+        <div class="modal fade" id="Quit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                  Quit Event
+                </h4>
+              </div>
+              <div class="modal-body">
+                Are you sure you want quit from that event?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Return
+                </button>
+                <form action = "exit" method = "post" style="margin:0px;display:inline;">
+                {% csrf_token %}
+                <button type = "submit" class="btn btn-primary" name = "Quit">Quit</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-        </form>
       </div>
       {% else %}
       <div class="col-xs-12">
@@ -114,6 +173,7 @@
         </div>
         </form>
       </div>
+      {% endif %}
       {% endif %}
 
 

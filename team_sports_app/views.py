@@ -162,3 +162,9 @@ def exit_event(request, user_username, event_id):
         messages.add_message(request, messages.ERROR,
                              "You haven't in that event yet！")
     return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
+
+def delete_event(request, user_username, event_id):
+        Event.objects.get(id=event_id).delete()
+        messages.success(request, 'You are successfully delete this event!')
+
+        return HttpResponseRedirect(reverse('team_sports_app:events'))
