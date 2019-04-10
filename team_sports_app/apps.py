@@ -1,3 +1,4 @@
+# Django Library. Modified by Grp group 4
 from django.apps import AppConfig
 
 

@@ -1,3 +1,4 @@
+# Django Library. Modified by Grp group 4
 """
 Django settings for team_sports project.
 

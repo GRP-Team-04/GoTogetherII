@@ -52,19 +52,6 @@
   </div>
 </div>
 
-
-  <!-- <h1>{{ event }}</h1>
-    <div class="col-xs-2">
-      <a href="{% url 'team_sports_app:edit_event' user.username event.id %}">
-        <button class="btn btn-primary" type="button" name="button">Edit Event</button>
-      </a>
-    </div>
-    <div class="col-xs-2">
-      <form action = "join" method = "post">
-        {% csrf_token %}
-          <button type = "submit" class="btn btn-primary" name = "Join">Join</button>
-      </form>
-    </div> -->
 {% endblock header%}
 
 {% block content %}
@@ -107,79 +94,52 @@
   {% empty %}
       <p class="text-center">There are no participants for this event now</p>
   {% endfor %}
-    <!-- <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="col-sm-6">
-          <h3>
-              {{ participant.participantID|linebreaks }}
-                <small>
-                  <p>Join at {{ participant.date_added|date:'M d, Y H:i' }}</p>
-                </small>
-            </h3>
+
+  {% if isOwner %}
+  <!-- Hide quit button to event owner -->
+  {% else %}
+  {% if isJoined %}
+  <div class="col-xs-12 text-center">
+    <button class="btn btn-primary " data-toggle="modal" data-target="#Quit">
+      Quit
+    </button>
+    <!--Modal -->
+    <div class="modal fade" id="Quit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+              Quit Event
+            </h4>
           </div>
-        <div class="col-sm-6">##</div>
-      <div class="panel-body" >
-        <table class = "table">
-          <tr>
-            <th><span class="icon-user"></span>  Organizer</th>
-            <td class="text-center">{{ event.owner}}</td>
-          <tr>
-            <th><span class="icon-time"></span>  When</th>
-            <td class="text-center">{{ event.date_added|date:'M d, Y H:i' }}</td>
-          </tr>
-          <tr>
-            <th><span class="icon-road"></span>  Venue</th>
-            <td class="text-center">{{ event.Event_venue}}</td>
-          </tr>
-        </table> -->
-      {% if isOwner %}
-      <!-- Hide quit button to event owner -->
-      {% else %}
-      {% if isJoined %}
-      <div class="col-xs-12 text-center">
-        <button class="btn btn-primary " data-toggle="modal" data-target="#Quit">
-          Quit
-        </button>
-        <!--Modal -->
-        <div class="modal fade" id="Quit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                  &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                  Quit Event
-                </h4>
-              </div>
-              <div class="modal-body">
-                Are you sure you want quit from that event?
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Return
-                </button>
-                <form action = "exit" method = "post" style="margin:0px;display:inline;">
-                {% csrf_token %}
-                <button type = "submit" class="btn btn-primary" name = "Quit">Quit</button>
-                </form>
-              </div>
-            </div>
+          <div class="modal-body">
+            Are you sure you want quit from that event?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Return
+            </button>
+            <form action = "exit" method = "post" style="margin:0px;display:inline;">
+            {% csrf_token %}
+            <button type = "submit" class="btn btn-primary" name = "Quit">Quit</button>
+            </form>
           </div>
         </div>
       </div>
-      {% else %}
-      <div class="col-xs-12">
-        <form action = "join" method = "post">
-        {% csrf_token %}
-        <div class="text-center">
-          <button type = "submit" class="btn btn-primary" name = "Join">Join</button>
-        </div>
-        </form>
-      </div>
-      {% endif %}
-      {% endif %}
-
-
-
-
+    </div>
+  </div>
+  {% else %}
+  <div class="col-xs-12">
+    <form action = "join" method = "post">
+    {% csrf_token %}
+    <div class="text-center">
+      <button type = "submit" class="btn btn-primary" name = "Join">Join</button>
+    </div>
+    </form>
+  </div>
+  {% endif %}
+  {% endif %}
+  
 {% endblock content %}
