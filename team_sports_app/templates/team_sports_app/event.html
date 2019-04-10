@@ -35,18 +35,18 @@
       				</button>
               <form action = "delete" method = "post" style="margin:0px;display:inline;">
               {% csrf_token %}
-              <button type="submit" class="btn btn-primary" name="delete">Confirm</button>
+              <button type="submit" class="btn btn-danger" name="delete">Confirm</button>
               </form>
       			</div>
       		</div>
       	</div>
       </div>
       <div class="col-xs-12 text-center">
-        <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:events'  %}'">Return</button>
+        <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:events'  %}'"><span class=" icon-arrow-left"></button>
       </div>
     {%else%}
     <div class="col-xs-12 text-center">
-      <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:events'  %}'">Return</button>
+      <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:events'  %}'"><span class=" icon-arrow-left"></span></button>
     </div>
     {%endif %}
   </div>
@@ -141,5 +141,5 @@
   </div>
   {% endif %}
   {% endif %}
-  
+
 {% endblock content %}

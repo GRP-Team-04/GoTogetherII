@@ -84,22 +84,24 @@ def join(request, user_username, event_id):
 
     participant1 = Participant()
     try:
-        participant1.eventID = Event.objects.get(id=event_id)
+        event = Event.objects.get(id=event_id)
     except Exception as e:
         messages.error(request, 'The Event is not exist anymore!')
         return HttpResponseRedirect(reverse('team_sports_app:events'))
-    participant1.eventID = Event.objects.get(id=event_id)
-    participant1.participantID = User.objects.get(username=user_username)
-    if(Participant.objects.filter(participantID=request.user, eventID=event_id).exists()):
 
+    if (event.Max_players == event.Players_registratered):
+        messages.error(request, 'The team is full, please browser other events!')
+    elif(Participant.objects.filter(participantID=request.user, eventID=event_id).exists()):
         messages.add_message(request, messages.ERROR,
                              "You have already joined this event！")
 
         return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
     else:
-        #participant1.date_added = "2019-3-8"
+        participant1.eventID = event
+        participant1.participantID = User.objects.get(username=user_username)
         participant1.save()
-
+        event.Players_registratered += 1
+        event.save();
         response = "current participant <br>"
         list = Participant.objects.all()
         messages.add_message(request, messages.SUCCESS,
@@ -169,7 +171,10 @@ def exit_event(request, user_username, event_id):
 
     if(Participant.objects.filter(participantID=request.user, eventID=event_id).exists()):
         try:
+            event = Event.objects.get(id = event_id)
             Participant.objects.get(participantID=request.user, eventID=event_id).delete()
+            event.Players_registratered -= 1
+            event.save()
         except Exception as e:
             messages.error(request, 'The Event is not exist anymore!')
             return HttpResponseRedirect(reverse('team_sports_app:events'))

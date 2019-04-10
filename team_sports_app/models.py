@@ -1,4 +1,4 @@
-# Author:Grp group 4 
+# Author:Grp group 4
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -13,7 +13,7 @@ class Event(models.Model):
     Event_time = models.DateTimeField()
     Event_venue = models.CharField(max_length=100)
     Max_players = models.IntegerField()
-    Players_registratered = models.IntegerField()
+    Players_registratered = models.IntegerField(default=1)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
