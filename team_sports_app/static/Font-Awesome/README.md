@@ -1,3 +1,6 @@
+##Third-party component: Font-Awesome
+#Adopted by Grp group 4
+
 #[Font Awesome v3.2.1](http://fontawesome.io)
 ###the iconic font designed for Bootstrap
 

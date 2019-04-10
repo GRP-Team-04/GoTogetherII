@@ -1,6 +1,8 @@
+# Author:Grp group 4 
+
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
+
 
 
 class Event(models.Model):
