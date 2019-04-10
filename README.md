@@ -1,4 +1,15 @@
 # GoTogether
+Author: Grp group 4
+Group Member:
+Yiyang GUO	6521650 
+Jiabin CAO	6522023 
+Songhao GU	6522035 
+Zixuan WEN	6521797 
+Yiyang SHI	6518724 
+
+Supervisor: Matthew Pike		
+				
+
 
 This is a web application used to organize team sports. There are two main roles in using this application.
 
