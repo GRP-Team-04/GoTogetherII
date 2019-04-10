@@ -1,14 +1,14 @@
 # GoTogether
 Author: Grp group 4
 Group Member:
-Yiyang GUO	6521650 
-Jiabin CAO	6522023 
-Songhao GU	6522035 
-Zixuan WEN	6521797 
-Yiyang SHI	6518724 
+Yiyang GUO	6521650
+Jiabin CAO	6522023
+Songhao GU	6522035
+Zixuan WEN	6521797
+Yiyang SHI	6518724
 
 Supervisor: Matthew Pike		
-				
+
 
 
 This is a web application used to organize team sports. There are two main roles in using this application.
@@ -24,7 +24,10 @@ Under CMD:
 2.Run: python manage.py migrate
 3.Run: python manage.py collecstatic
 4.Run；python manage.py runserver
-5.If there is no error, open browser access 127.0.0.1:8000. The project will appear
+5.If there is no error, open browser access http://127.0.0.1:8000. The project will appear
+We reserved an administrator account:admin password:123456798.
+Background address:http://127.0.0.1:8000/ZvRoo4fuB5bbVsZb3r63/
+
 IMPORTANT!
 6.If you can't configure it for environmental reasons, you can also directly access the link. We have deployed on the server.
 https://miniapp.jabean.top
