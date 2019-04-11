@@ -29,7 +29,7 @@ We reserved an administrator account:admin password:123456798.
 Background address:http://127.0.0.1:8000/ZvRoo4fuB5bbVsZb3r63/
 
 IMPORTANT!
-6.If you can't configure it for environmental reasons, you can also directly access the link. We have deployed on the server.
+6.If you can't configure it for environmental reasons, you can either directly access the link below or scan the access QR in the root directory. We have deployed on the server.
 https://miniapp.jabean.top
 
 ####Component
