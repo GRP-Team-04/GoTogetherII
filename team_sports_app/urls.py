@@ -20,6 +20,9 @@ urlpatterns = [
 	# Add new Event
 	url(r'^new_event/$', views.new_event, name='new_event'),
 
+	# Add new Event
+	url(r'^myevents/$', views.my_event, name='myevents'),
+
     # Edit existed event
 
 	url(r'^edit_event/(?P<user_username>\w+)/(?P<event_id>\d+)/$', views.edit_event, name="edit_event"),
@@ -35,7 +38,7 @@ urlpatterns = [
 	# Delete existed event
 
 	url(r'^events/(?P<user_username>\w+)/(?P<event_id>\d+)/delete$', views.delete_event, name="delete"),
-	
+
 	url(r'^profiles/$', views.profiles, name = 'profiles'),
 
 	url(r'^edit_profiles/$', views.edit_profiles, name='edit_profiles'),

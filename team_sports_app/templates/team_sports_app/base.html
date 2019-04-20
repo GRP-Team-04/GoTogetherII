@@ -40,8 +40,9 @@
           <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
             <li><a  id="white" >Welcome, {{ user.username }}!</a></li>
-            <li><a id="white" href="{% url 'team_sports_app:events' %}"><span class="glyphicon glyphicon-th"></span> Events</a></li>
-            <li><a  id="white" href="{%url 'team_sports_app:profiles'%}"><span class="glyphicon glyphicon-home"></span> My Profiles</a></li>
+            <li><a id="white" href="{% url 'team_sports_app:events' %}"><span class="glyphicon glyphicon-th"></span>Public Events</a></li>
+            <li><a id="white" href="{% url 'team_sports_app:myevents' %}"><span class="glyphicon glyphicon-th"></span> My Events</a></li>
+            <li><a  id="white" href="{%url 'team_sports_app:profiles'%}"><span class="glyphicon glyphicon-home"></span>Profiles</a></li>
             <li><a  id="white" href="{% url 'users:logout' %}"><span class="glyphicon glyphicon-log-out"></span>Sign out</a></li>
           {% else %}
             <li><a id="white" href="{% url 'team_sports_app:events' %}"><span class="glyphicon glyphicon-th"></span> Events</a></li>

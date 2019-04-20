@@ -18,9 +18,16 @@ def index(request):
 def events(request):
     """Show all of the events"""
     events = Event.objects.order_by('Event_time')
-    context = {'events': events, 'what':50}
+    context = {'events': events}
     return render(request, 'team_sports_app/events.html', context)
 
+@login_required
+def my_event(request):
+    # show current user's event
+    my = request.user
+    myevents = my.event_set.order_by(('date_added'))
+    context = {'myevents': myevents}
+    return render(request, 'team_sports_app/myevents.html', context)
 
 @login_required
 def event(request, user_username, event_id):
@@ -36,7 +43,6 @@ def event(request, user_username, event_id):
     context = {'event': event, 'participants': participants,'isJoined' : isJoined, 'isOwner' : isOwner}
 
     return render(request, 'team_sports_app/event.html', context)
-
 
 @login_required
 def new_event(request):
@@ -106,11 +112,6 @@ def join(request, user_username, event_id):
         list = Participant.objects.all()
         messages.add_message(request, messages.SUCCESS,
                              "Successfully join the event！")
-
-        """show all rows of table participant, will be changed to HttpResponseRedirect"""
-        """for var in list:
-			response += var.eventID.Event_name + "  " + var.participantID.username+"<br>"
-            return HttpResponse("<p>" + response + "</p>")"""
 
         return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
 

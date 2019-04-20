@@ -1,0 +1,23 @@
+<!-- Author:Grp group 4 -->
+{% extends "team_sports_app/base.html" %}
+{% load bootstrap3 %}
+{% block header %}
+<h1 class="text-center">My Existing Events</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="container container-small container-transparent">
+  {% for event in myevents %}
+    <a href="{% url 'team_sports_app:event' user.username event.id %}">
+      <div class="panel panel-primary">
+      <div class="panel-heading">
+        {{event.Event_name}}
+      </div>
+      <div class="panel-body">
+        <p>Event start at: {{event.Event_time|date:'M d, Y H:i'}}</p>
+      </div>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+{% endblock content %}

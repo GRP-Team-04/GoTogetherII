@@ -9,12 +9,11 @@
 {% block content %}
 <div class="container-fluid container-transparent container-small">
   <form action="{% url 'team_sports_app:new_event' %}" method='post'>
-
     {% csrf_token %}
     {% bootstrap_form form %}
     <div class="text-center">
       {% buttons%}
-      <button name="submit" class="btn btn-primary">Add event</button>
+      <button name="submit" class="btn btn-primary">Add</button>
       {%endbuttons%}
     </div>
   </form>

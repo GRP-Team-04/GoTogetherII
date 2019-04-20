@@ -64,7 +64,10 @@ div.row{
 	border-radius: 25px;
 	background-color: rgb(36, 133, 233);
 }
+.panel-primary >.panel-heading{
+	background-color: rgb(36, 133, 233);
 
+}
 .top{
 	position: absolute;
 	z-index: 999999;
