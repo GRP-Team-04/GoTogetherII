@@ -25,7 +25,8 @@ def events(request):
 def my_event(request):
     # show current user's event
     my = request.user
-    myevents = my.event_set.order_by(('date_added'))
+    myownevents = my.event_set.order_by(('date_added'))
+    myjoinedevent = Pa
     context = {'myevents': myevents}
     return render(request, 'team_sports_app/myevents.html', context)
 
@@ -108,8 +109,7 @@ def join(request, user_username, event_id):
         participant1.save()
         event.Players_registratered += 1
         event.save();
-        response = "current participant <br>"
-        list = Participant.objects.all()
+        
         messages.add_message(request, messages.SUCCESS,
                              "Successfully join the event！")
 
