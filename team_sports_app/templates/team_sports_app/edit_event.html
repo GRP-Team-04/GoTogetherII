@@ -12,7 +12,7 @@
     <span class=" icon-arrow-left">
     </button></h4>
 
-  <form action="{% url 'team_sports_app:edit_event' user.username event.id %}" method='post'>
+  <form action="{% url 'team_sports_app:edit_event' event.id %}" method='post'>
     {% csrf_token %}
     {% bootstrap_form form %}
     <div class="text-center">
@@ -20,9 +20,5 @@
     </div>
   </form>
 </div>
-<script type="text/javascript">
-    $('#datetimepicker1').datetimepicker({
-        format: 'YYYY-MM-DD HH:mm',
-    });
-</script>
+
 {% endblock content %}

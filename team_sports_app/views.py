@@ -26,12 +26,12 @@ def my_event(request):
     # show current user's event
     my = request.user
     myownevents = my.event_set.order_by(('date_added'))
-    myjoinedevent = Pa
-    context = {'myevents': myevents}
+    # myjoinedevent = Pa
+    context = {'myownevents': myownevents}
     return render(request, 'team_sports_app/myevents.html', context)
 
 @login_required
-def event(request, user_username, event_id):
+def event(request, event_id):
     """Show the details of one selected event"""
     try:
         event = Event.objects.get(id=event_id)
@@ -69,7 +69,7 @@ def new_event(request):
 
 
 @login_required
-def edit_event(request, user_username, event_id):
+def edit_event(request, event_id):
     """ Edit exist event """
 
     event = Event.objects.filter(owner=request.user).get(id=event_id)
@@ -81,12 +81,12 @@ def edit_event(request, user_username, event_id):
         form = EventForm(instance=event, data=request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
+            return HttpResponseRedirect(reverse('team_sports_app:event', args=[event_id]))
     context = {'event': event, 'form': form}
     return render(request, 'team_sports_app/edit_event.html', context)
 
 
-def join(request, user_username, event_id):
+def join(request, event_id):
     """one more parameter 'user_id' or 'pass_in_username' needed here"""
 
     participant1 = Participant()
@@ -102,25 +102,26 @@ def join(request, user_username, event_id):
         messages.add_message(request, messages.ERROR,
                              "You have already joined this event！")
 
-        return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
+        return HttpResponseRedirect(reverse('team_sports_app:event', args=[event_id]))
     else:
         participant1.eventID = event
-        participant1.participantID = User.objects.get(username=user_username)
+        participant1.participantID = User.objects.get(username=request.user)
         participant1.save()
         event.Players_registratered += 1
         event.save();
-        
+
         messages.add_message(request, messages.SUCCESS,
                              "Successfully join the event！")
 
-        return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
+        return HttpResponseRedirect(reverse('team_sports_app:event', args=[event_id]))
 
-def profiles(request):
+def profiles(request, whoseprofile):
 	#return HttpResponse("profiles")
-
-	if(Profiles.objects.filter(userID=request.user).exists()):
-		MyProfiles = Profiles.objects.filter(userID=request.user)
-		context = {'MyProfiles': MyProfiles}
+	Who = User.objects.get(username=whoseprofile)
+	if(Profiles.objects.filter(userID=Who).exists()):
+		MyProfiles = Profiles.objects.filter(userID=Who)
+		isOwner = (request.user == Who)
+		context = {'MyProfiles': MyProfiles,'isOwner':isOwner}
 		return render(request, 'team_sports_app/profiles.html', context)
 	else:
 		if request.method != 'POST':
@@ -133,9 +134,9 @@ def profiles(request):
 				new_profiles = form.save(commit=False)
 				new_profiles.userID = request.user
 				new_profiles.save()
-				return HttpResponseRedirect(reverse('team_sports_app:profiles'))
+				return HttpResponseRedirect(reverse('team_sports_app:profiles',args=[whoseprofile]))
 
-		context = {'form': form}
+		context = {'form': form, 'isOwner':True}
 		return render(request, 'team_sports_app/AddProfiles.html', context)
 
 def edit_profiles(request):
@@ -143,20 +144,10 @@ def edit_profiles(request):
 	context = {'MyProfiles': MyProfiles}
 	return render(request, 'team_sports_app/Edit_Profiles.html', context)
 
-	"""profile = Profiles.objects.get(userID=request.user)
-	if request.method != 'POST':
-		form = ProfilesForm(instance=profile)
-	else:
-		form = ProfilesForm(request.POST)
-		if form.is_valid():
-			form.save()
-	context = {'form': form}
-	return render(request, 'team_sports_app/AddProfiles.html', context)	"""
-
 def save_new_profiles(request):
 	if(request.POST.get('name')==""):
 		messages.warning(request, 'The contents of the name cannot be empty')
-		return HttpResponseRedirect(reverse('team_sports_app:profiles'))
+		return HttpResponseRedirect(reverse('team_sports_app:profiles',args=[request.user]))
 	else:
 		new_profile = Profiles.objects.get(userID=request.user)
 		new_profile.userID=request.user
@@ -168,7 +159,7 @@ def save_new_profiles(request):
 		new_profile.save()
 		return HttpResponseRedirect(reverse('team_sports_app:profiles'))
 
-def exit_event(request, user_username, event_id):
+def exit_event(request,event_id):
 
     if(Participant.objects.filter(participantID=request.user, eventID=event_id).exists()):
         try:
@@ -183,9 +174,9 @@ def exit_event(request, user_username, event_id):
     else:
         messages.add_message(request, messages.ERROR,
                              "You haven't in that event yet！")
-    return HttpResponseRedirect(reverse('team_sports_app:event', args=[user_username, event_id]))
+    return HttpResponseRedirect(reverse('team_sports_app:event', args=[event_id]))
 
-def delete_event(request, user_username, event_id):
+def delete_event(request,event_id):
         Event.objects.get(id=event_id).delete()
         messages.success(request, 'You are successfully delete this event!')
 

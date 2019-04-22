@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="container container-transparent container-small">
-  <form action="{% url 'team_sports_app:profiles' %}" method='post'>
+  <form action="{% url 'team_sports_app:profiles' user %}" method='post'>
 
   {% csrf_token %}
 	{% bootstrap_form form %}

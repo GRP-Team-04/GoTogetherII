@@ -76,7 +76,7 @@
         </div>
         {% if user.is_authenticated %}
         <div class="text-center">
-          <a href="{% url 'team_sports_app:event' user.username event.id %}">
+          <a href="{% url 'team_sports_app:event'  event.id %}">
             <button class="btn-primary btn-lg btn" type="button" name="button">View Details</button>
           </a>
         </div>

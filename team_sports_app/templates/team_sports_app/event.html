@@ -8,13 +8,13 @@
   <div class="btn-group-lg">
     {%if isOwner %}
     <div class="col-xs-6 text-center">
-      <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:edit_event' user.username event.id %}'">
-        <span class="icon-pencil"></span>Edit</button>
+      <button class="btn btn-primary"  name="button" onclick="location.href='{% url 'team_sports_app:edit_event' event.id %}'">
+        <span class="icon-pencil"></span></button>
     </div>
 
     <div class="clo-xs-6 text-center">
       <button class="btn btn-danger" data-toggle="modal" data-target="#Delete">
-      	<span class="icon-trash"></span>Delete
+      	<span class="icon-trash"></span>
       </button>
       <!--Modal -->
       <div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -77,13 +77,15 @@
 </div>
 
 <div class="container-transparent container ">
-  <p class="text-center text-success">Users Who Have Joined</p>
+  <h4 class="text-center">Users Who Have Joined</h4>
   {% for participant in participants %}
   {% if forloop.first %}<div class="row">{% endif %}
   <div class="col-sm-3">
     <div class="well well-sm">
         <h3>
+          <a href="{%url 'team_sports_app:profiles' participant.participantID %}">
           {{ participant.participantID|linebreaks }}
+          </a>
           <small>
             <p>Join at {{ participant.date_added|date:'M d, Y H:i' }}</p>
           </small>

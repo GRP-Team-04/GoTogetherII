@@ -7,8 +7,8 @@
 
 {% block content %}
 <div class="container container-small container-transparent">
-  {% for event in myevents %}
-    <a href="{% url 'team_sports_app:event' user.username event.id %}">
+  {% for event in myownevents %}
+    <a href="{% url 'team_sports_app:event'  event.id %}">
       <div class="panel panel-primary">
       <div class="panel-heading">
         {{event.Event_name}}
@@ -18,6 +18,13 @@
       </div>
       </div>
     </a>
+    {% empty %}
+      <div class="text-center">
+        <p>You haven't created and joined any event yet!</p>
+        <a id="white" href="{% url 'team_sports_app:events' %}">
+          <button class="btn btn-primary text-uppercase " " name="button">Get Start Now</button>
+        </a>
+      </div>
   {% endfor %}
 </div>
 {% endblock content %}
