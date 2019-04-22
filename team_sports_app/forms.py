@@ -17,5 +17,5 @@ class EventForm(forms.ModelForm):
 class ProfilesForm(forms.ModelForm):
 	class Meta:
 		model = Profiles
-		fields = ['name', 'age', 'speciality', 'address', 'statement']
-		labels = {'name': 'name', 'age': 'age', 'speciality': 'speciality', 'address': 'address', 'statement': 'statement'}
+		fields = ['name', 'age', 'speciality', 'email', 'statement']
+		labels = {'name': 'name', 'age': 'age', 'speciality': 'speciality', 'email': 'email', 'statement': 'statement'}

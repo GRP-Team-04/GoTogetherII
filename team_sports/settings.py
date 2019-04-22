@@ -142,3 +142,10 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT =  os.path.join(BASE_DIR,'static')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.qq.com"  # SMTP service
+EMAIL_PORT = 465            # port
+EMAIL_HOST_USER = "690373309@qq.com"       # My Address
+EMAIL_HOST_PASSWORD = "omydfnpeakklbbef"    # #Key
+EMAIL_USE_SSL= True

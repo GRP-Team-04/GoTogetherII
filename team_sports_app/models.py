@@ -15,6 +15,7 @@ class Event(models.Model):
     Max_players = models.IntegerField()
     Players_registratered = models.IntegerField(default=1)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    isNotify = models.BooleanField(default = False)
 
     def __str__(self):
         """Return string representation(description of event) of model"""
@@ -38,8 +39,9 @@ class Profiles(models.Model):
 	name = models.CharField(max_length=100, null=False)
 	age = models.IntegerField(null=True)
 	speciality = models.CharField(max_length=100, null=True)
-	address = models.CharField(max_length=100, null=True)
+	email = models.EmailField(max_length=75, null=True)
 	statement = models.CharField(max_length=150, null=True)
+
 
 	def __str__(self):
 		"""Return string representation(description of event) of model"""

@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from .forms import EventForm, ProfilesForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.mail import send_mail
 import datetime
 
 def index(request):
@@ -42,7 +43,8 @@ def event(request, event_id):
     participants = event.participant_set.order_by(('-date_added'))
     isOwner = (event.owner == request.user)
     isJoined = Participant.objects.filter(participantID=request.user, eventID=event_id).exists()
-    context = {'event': event, 'participants': participants,'isJoined' : isJoined, 'isOwner' : isOwner}
+    isNotify = event.isNotify
+    context = {'event': event, 'participants': participants,'isJoined' : isJoined, 'isOwner' : isOwner,'isNotify':isNotify}
 
     return render(request, 'team_sports_app/event.html', context)
 
@@ -109,7 +111,7 @@ def join(request, event_id):
         participant1.participantID = User.objects.get(username=request.user)
         participant1.save()
         event.Players_registratered += 1
-        event.save();
+        event.save()
 
         messages.add_message(request, messages.SUCCESS,
                              "Successfully join the event！")
@@ -120,9 +122,10 @@ def profiles(request, whoseprofile):
 	#return HttpResponse("profiles")
 	Who = User.objects.get(username=whoseprofile)
 	if(Profiles.objects.filter(userID=Who).exists()):
-		MyProfiles = Profiles.objects.filter(userID=Who)
+		MyProfile = Profiles.objects.get(userID=Who)
+		previouspage = request.path
 		isOwner = (request.user == Who)
-		context = {'MyProfiles': MyProfiles,'isOwner':isOwner}
+		context = {'MyProfile': MyProfile,'isOwner':isOwner,'previouspage':previouspage}
 		return render(request, 'team_sports_app/profiles.html', context)
 	else:
 		if request.method != 'POST':
@@ -155,7 +158,7 @@ def save_new_profiles(request):
 		new_profile.name=request.POST.get('name')
 		new_profile.age=request.POST.get('age')
 		new_profile.speciality=request.POST.get('speciality')
-		new_profile.address=request.POST.get('address')
+		new_profile.email=request.POST.get('email')
 		new_profile.statement=request.POST.get('statement')
 		new_profile.save()
 		return HttpResponseRedirect(reverse('team_sports_app:profiles',args=[request.user]))
@@ -182,3 +185,33 @@ def delete_event(request,event_id):
         messages.success(request, 'You are successfully delete this event!')
 
         return HttpResponseRedirect(reverse('team_sports_app:events'))
+
+def notify_begin(request, event_id):
+    try:
+        event = Event.objects.get(id=event_id)
+    except Exception as e:
+        return HttpResponseRedirect(reverse('team_sports_app:event', args=[event_id]))
+
+    if event.isNotify:
+        messages.error(request, 'You have notified the participants that you cannot use this feature anymore!')
+        return HttpResponseRedirect(reverse('team_sports_app:event',args=[event_id]))
+    participants = event.participant_set.order_by(('-date_added'))
+
+    from_email = 'GoTogether<690373309@qq.com>'
+    recivers = []
+    for participant in participants:
+        profile = Profiles.objects.get(userID = participant.participantID)
+        email = profile.email
+        if email != '':
+            recivers.append(profile.email)
+
+    msg = 'Event: ' + event.Event_name + '\n' + 'Manager: ' + event.owner.username + '\n' + 'Start Time: ' + event.Event_time.strftime("%Y-%m-%d") + '\n' +'At ' + event.Event_venue + '\n' +"It is about to begin.\nThe manager reminds you to be present in time!"
+
+
+    send_mail("Event Start Reminding",msg,from_email,recivers)
+    event.isNotify = True
+    event.save()
+
+    # return HttpResponse(msg)
+    messages.success(request, 'Notify participants successfully!')
+    return HttpResponseRedirect(reverse('team_sports_app:event', args=[event_id]))

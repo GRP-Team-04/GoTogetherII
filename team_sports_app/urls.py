@@ -31,6 +31,9 @@ urlpatterns = [
 
 	url(r'^events/(?P<event_id>\d+)/join$', views.join, name="join"),
 
+    #Notify begin
+    url(r'^events/(?P<event_id>\d+)/notifybegin$', views.notify_begin, name="notifybegin"),
+
 	# Quit event
 
 	url(r'^events/(?P<event_id>\d+)/exit$', views.exit_event, name="exit"),
@@ -43,4 +46,6 @@ urlpatterns = [
 
 	url(r'^edit_profiles/$', views.edit_profiles, name='edit_profiles'),
 	url(r'^save_new_profiles/$', views.save_new_profiles, name='save_new_profiles'),
+
+
 ]

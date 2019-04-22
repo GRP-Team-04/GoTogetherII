@@ -35,10 +35,10 @@ def register(request):
             new_profile.name='Need to fill in'
             new_profile.age= 0
             new_profile.speciality='Need to fill in'
-            new_profile.address='Need to fill in'
+            new_profile.email= ''
             new_profile.statement='Need to fill in'
             new_profile.save()
-            return HttpResponseRedirect(reverse('team_sports_app:profiles',args=[request.user]))
+            return HttpResponseRedirect(reverse('team_sports_app:profiles',args=[request.user.username]))
 
     context = {'form': form}
     return render(request, 'users/register.html', context)
