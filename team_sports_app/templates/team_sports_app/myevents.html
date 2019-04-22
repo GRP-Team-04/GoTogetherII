@@ -6,16 +6,18 @@
 {% endblock header %}
 
 {% block content %}
-<div class="container container-small container-transparent">
+<div class="container container-transparent">
   {% for event in myownevents %}
     <a href="{% url 'team_sports_app:event'  event.id %}">
-      <div class="panel panel-primary">
-      <div class="panel-heading">
-        {{event.Event_name}}
-      </div>
-      <div class="panel-body">
-        <p>Event start at: {{event.Event_time|date:'M d, Y H:i'}}</p>
-      </div>
+      <div class="col-xs-4">
+        <div class="panel panel-primary">
+        <div class="panel-heading">
+          {{event.Event_name}}
+        </div>
+        <div class="panel-body">
+          <p>Event start at: {{event.Event_time|date:'M d, Y H:i'}}</p>
+        </div>
+        </div>
       </div>
     </a>
     {% empty %}

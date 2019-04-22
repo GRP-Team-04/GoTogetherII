@@ -18,7 +18,6 @@ class Event(models.Model):
 
     def __str__(self):
         """Return string representation(description of event) of model"""
-        Players_registratered = 0
         return self.Event_name
 
 
@@ -41,3 +40,7 @@ class Profiles(models.Model):
 	speciality = models.CharField(max_length=100, null=True)
 	address = models.CharField(max_length=100, null=True)
 	statement = models.CharField(max_length=150, null=True)
+
+	def __str__(self):
+		"""Return string representation(description of event) of model"""
+		return self.userID.username

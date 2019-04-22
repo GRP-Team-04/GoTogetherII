@@ -157,7 +157,7 @@ def save_new_profiles(request):
 		new_profile.address=request.POST.get('address')
 		new_profile.statement=request.POST.get('statement')
 		new_profile.save()
-		return HttpResponseRedirect(reverse('team_sports_app:profiles'))
+		return HttpResponseRedirect(reverse('team_sports_app:profiles',args=[request.user]))
 
 def exit_event(request,event_id):
 
