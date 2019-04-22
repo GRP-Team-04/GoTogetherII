@@ -28,7 +28,7 @@ def my_event(request):
     # show current user's event
     my = request.user
     myownevents = my.event_set.order_by(('-date_added'))
-    myjoinedevents = Participant.objects.filter(participantID = request.user)
+    myjoinedevents = Participant.objects.filter(participantID = request.user).order_by(('-date_added'))
     context = {'myownevents': myownevents, 'myjoinedevents' : myjoinedevents}
     return render(request, 'team_sports_app/myevents.html', context)
 
@@ -195,23 +195,34 @@ def notify_begin(request, event_id):
     if event.isNotify:
         messages.error(request, 'You have notified the participants that you cannot use this feature anymore!')
         return HttpResponseRedirect(reverse('team_sports_app:event',args=[event_id]))
-    participants = event.participant_set.order_by(('-date_added'))
 
-    from_email = 'GoTogether<690373309@qq.com>'
-    recivers = []
-    for participant in participants:
-        profile = Profiles.objects.get(userID = participant.participantID)
-        email = profile.email
-        if email != '':
-            recivers.append(profile.email)
+    else :
+        now = datetime.datetime.now()
+        now1 = now.replace(tzinfo=None)
+        Event_time = event.Event_time.replace(tzinfo=None)
+        # return HttpResponse((now,now1,Event_time,event.Event_time))
+        if Event_time < now:
+            messages.error(request, 'Your event has expired!')
+            return HttpResponseRedirect(reverse('team_sports_app:event',args=[event_id]))
 
-    msg = 'Event: ' + event.Event_name + '\n' + 'Manager: ' + event.owner.username + '\n' + 'Start Time: ' + event.Event_time.strftime("%Y-%m-%d") + '\n' +'At ' + event.Event_venue + '\n' +"It is about to begin.\nThe manager reminds you to be present in time!"
+        else:
+            participants = event.participant_set.order_by(('-date_added'))
+
+            from_email = 'GoTogether<690373309@qq.com>'
+            recivers = []
+            for participant in participants:
+                profile = Profiles.objects.get(userID = participant.participantID)
+                email = profile.email
+                if email != None:
+                    recivers.append(profile.email)
+
+            msg = 'Event: ' + event.Event_name + '\n' + 'Manager: ' + event.owner.username + '\n' + 'Start Time: ' + event.Event_time.strftime("%Y-%m-%d %H:%M") + '\n' +'At ' + event.Event_venue + '\n' +"It is about to begin.\nThe manager reminds you to be present in time!"
 
 
-    send_mail("Event Start Reminding",msg,from_email,recivers)
-    event.isNotify = True
-    event.save()
+            send_mail("Event Start Reminding",msg,from_email,recivers)
+            event.isNotify = True
+            event.save()
 
-    # return HttpResponse(msg)
-    messages.success(request, 'Notify participants successfully!')
-    return HttpResponseRedirect(reverse('team_sports_app:event', args=[event_id]))
+            # return HttpResponse(event.Event_time)
+            messages.success(request, 'Notify participants successfully!')
+            return HttpResponseRedirect(reverse('team_sports_app:event', args=[event_id]))
