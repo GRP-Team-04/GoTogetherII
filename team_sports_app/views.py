@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from .forms import EventForm, ProfilesForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+import datetime
 
 def index(request):
     """Home Page of the team sports"""
@@ -17,17 +17,18 @@ def index(request):
 
 def events(request):
     """Show all of the events"""
-    events = Event.objects.order_by('Event_time')
-    context = {'events': events}
+    time_now = datetime.datetime.now()
+    events = Event.objects.filter(Event_time__gt = time_now).order_by('Event_time')
+    context = {'events': events,'time_now':time_now}
     return render(request, 'team_sports_app/events.html', context)
 
 @login_required
 def my_event(request):
     # show current user's event
     my = request.user
-    myownevents = my.event_set.order_by(('date_added'))
-    # myjoinedevent = Pa
-    context = {'myownevents': myownevents}
+    myownevents = my.event_set.order_by(('-date_added'))
+    myjoinedevents = Participant.objects.filter(participantID = request.user)
+    context = {'myownevents': myownevents, 'myjoinedevents' : myjoinedevents}
     return render(request, 'team_sports_app/myevents.html', context)
 
 @login_required

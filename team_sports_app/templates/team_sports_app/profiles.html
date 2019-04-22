@@ -2,7 +2,7 @@
 
 {% extends "team_sports_app/base.html" %}
 {% block header %}
-  <h1 class="text-center">My Profiles</h1>
+  <h2 class="text-center">My Profile</h2>
 {% endblock header%}
 
 {% block content %}
@@ -38,7 +38,7 @@
         <form action="{% url 'team_sports_app:edit_profiles' %}" method='post'>
         	{% csrf_token %}
           <div class="text-center">
-            <button class="btn btn-primary" type="submit">Edit Profiles</button>
+            <button class="btn btn-primary" type="submit">Edit Profile</button>
           </div>
         </form>
         {% endif %}
