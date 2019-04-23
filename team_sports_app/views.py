@@ -216,7 +216,7 @@ def notify_begin(request, event_id):
                 if email != None:
                     recivers.append(profile.email)
 
-            msg = 'Event: ' + event.Event_name + '\n' + 'Manager: ' + event.owner.username + '\n' + 'Start Time: ' + event.Event_time.strftime("%Y-%m-%d %H:%M") + '\n' +'At ' + event.Event_venue + '\n' +"It is about to begin.\nThe manager reminds you to be present in time!"
+            msg = 'Event: ' + event.Event_name + '\n' + 'Manager: ' + event.owner.username + '\n' + 'Start Time: ' + event.Event_time.strftime("%Y-%m-%d %H:%M") + '\n' +'At: ' + event.Event_venue + '\n' +"It is about to begin.\nThe manager reminds you to be present in time!"
 
 
             send_mail("Event Start Reminding",msg,from_email,recivers)

@@ -44,6 +44,11 @@
     </td>
     </tr>
     </table>
+    {% if profile.email == '' %}
+    <div class="well well-sm text-center">
+      You need to fill in the email address before you can be notified.
+    </div>
+    {%endif%}
     <div class="text-center">
       <button class="btn btn-primary" type = "submit" value = "submit form">Submit</button>
     </div>
