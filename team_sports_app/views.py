@@ -157,7 +157,7 @@ def save_new_profiles(request):
 		return HttpResponseRedirect(reverse('team_sports_app:profiles',args=[request.user]))
 	else:
 		email = request.POST.get('email')
-		if email != None:
+		if email != '':
 			try:
 				validate_email( email )
 				new_profile = Profiles.objects.get(userID=request.user)
@@ -172,9 +172,20 @@ def save_new_profiles(request):
 				return HttpResponseRedirect(reverse('team_sports_app:profiles',args=[request.user]))
 			except ValidationError:
 				MyProfiles = Profiles.objects.filter(userID=request.user)
-				messages.error(request, 'Email address is invalid!')
+				messages.error(request, 'Email address is invalid! It can be either empty or valid.')
 				context = {'MyProfiles': MyProfiles}
 				return render(request, 'team_sports_app/Edit_Profiles.html', context)
+		else:
+			new_profile = Profiles.objects.get(userID=request.user)
+			new_profile.userID=request.user
+			new_profile.name=request.POST.get('name')
+			new_profile.age=request.POST.get('age')
+			new_profile.speciality=request.POST.get('speciality')
+			new_profile.email=request.POST.get('email')
+			new_profile.statement=request.POST.get('statement')
+			new_profile.save()
+			# return HttpResponse(validate_email( email ))
+			return HttpResponseRedirect(reverse('team_sports_app:profiles',args=[request.user]))
 
 def exit_event(request,event_id):
 
