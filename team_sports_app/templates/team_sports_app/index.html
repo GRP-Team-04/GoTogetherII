@@ -1,9 +1,12 @@
 <!-- Author:Grp group 4 -->
 
 {% extends "team_sports_app/base.html" %}
+{%load static%}
 {% block header%}
   <div  class="grad-blue-down jumbotron" style="padding-top:60px">
-    <h1 id="white" class="text-center">GoTogether</h1>
+    <div align="center" class="">
+      <img src="{% static "pic/logo.png" %}"   class="img-circle img-responsive" style="max-width: 300px;min-height:210px">
+    </div>
 	<h3 id="white" class="text-center"> Help you organize sport events!</h3>
   </div>
 {% endblock header %}
