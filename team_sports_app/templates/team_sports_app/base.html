@@ -46,7 +46,7 @@
             <li><a  id="white" href="{%url 'team_sports_app:profiles' user %}"><span class="glyphicon glyphicon-home"></span> Profile</a></li>
             <li><a  id="white" href="{% url 'users:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Sign out</a></li>
           {% else %}
-            <li><a id="white" href="{% url 'team_sports_app:events' %}"><span class="glyphicon glyphicon-th"></span> Events</a></li>
+            <li><a id="white" href="{% url 'team_sports_app:events' %}"><span class="glyphicon glyphicon-th"></span> Public Events</a></li>
             <li><a  id="white" href="{% url 'users:register' %}"><span class="glyphicon glyphicon-user"></span> SIGN UP</a></li>
             <li><a  id="white" href="{% url 'users:login' %}"><span class="glyphicon glyphicon-log-in"></span> SIGN IN</a></li>
 
